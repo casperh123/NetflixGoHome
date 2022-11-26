@@ -2,10 +2,10 @@ package data;
 import java.io.File;
 import java.util.ArrayList;
 
-public interface FileReader {
+public interface FileHandler {
 
     ArrayList<String> loadFile();
     void saveFile();
     void saveFileOverwrite();
-    void newFilePath(File file);
+    void openNewFile(File file);
 }
