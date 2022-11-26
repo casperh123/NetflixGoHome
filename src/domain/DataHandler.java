@@ -1,17 +1,17 @@
 package domain;
-import data.FileReader;
+import data.FileHandler;
 
 import java.util.List;
 import java.util.Map;
 
 public class DataHandler {
 
-    private FileReader fileReader;
+    private FileHandler fileHandler;
 
     public List<Media> assembleMovieList() {
         throw new UnsupportedOperationException();
     }
-
+    
     public List<Media> assembleSeriesList() {
         throw new UnsupportedOperationException();
     }
