@@ -37,7 +37,7 @@ class FileHandlerImplTest {
 
     @Test
     void saveFile() {
-        File writeTestFile = new File("test/lib/WriteTest.txt");
+        File writeTestFile = new File("test/testLib/WriteTest.txt");
         List<String> saveData = fileHandler.loadFile(writeTestFile);
         Random random = new Random();
 
@@ -57,7 +57,7 @@ class FileHandlerImplTest {
     @Test
     void saveFileOverwrite() {
 
-        File overwriteTestFile = new File("test/lib/overWriteTest.txt");
+        File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
         List<String> saveData = new ArrayList<>();
         Random random = new Random();
 

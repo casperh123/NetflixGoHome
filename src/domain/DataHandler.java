@@ -2,12 +2,19 @@ package domain;
 
 import data.FileHandler;
 
-import java.util.List;
-import java.util.Map;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.*;
 
 public class DataHandler {
     private FileHandler fileHandler;
+    private File movieList;
+    private File seriesList;
 
+    public DataHandler() {
+        movieList = new File("lib/mediaMetaData/film.txt");
+        seriesList = new File("lib/mediaMetaData/film.txt");
+    }
     public List<Media> assembleMovieList() {
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
