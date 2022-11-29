@@ -62,17 +62,23 @@ public class DataHandler {
         double rating = Double.parseDouble(dataEntries[3]);
         Image poster;
 
-        try {
-            poster = fileHandler.getImage(title, "movies");
-        } catch(IllegalArgumentException | IOException e) {
-            poster = null;
-            System.out.println("Critical Error: " + e.getMessage());
-        }
+        if(mediaType.equals("movie")) {
+            try {
+                poster = fileHandler.getImage(title, "movie");
+            } catch(IllegalArgumentException | IOException e) {
+                poster = null;
+                System.out.println("Critical Error: " + e.getMessage());
+            }
 
-
-        if(mediaType.equals("movies")) {
             return new Movie(title, releaseYear, genres, rating, poster);
+
         } else {
+            try {
+                poster = fileHandler.getImage(title, "series");
+            } catch(IllegalArgumentException | IOException e) {
+                poster = null;
+                System.out.println("Critical Error: " + e.getMessage());
+            }
             //TODO Constructor contains placeholder variables to make tests executable. Replace Seasons and episodes with proper values. Same goes for Image.
             return new Series(title, releaseYear, genres, rating, poster, 10, new HashMap<Integer, Integer>());
         }
