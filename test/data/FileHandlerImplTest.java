@@ -17,8 +17,8 @@ class FileHandlerImplTest {
 
     @BeforeEach
     void setUp() {
-        this.moviesFile = new File("lib/mediaMetaData/film.txt");
-        this.seriesFile = new File("lib/mediaMetaData/serier.txt");
+        this.moviesFile = new File("lib/mediaMetaData/movies.txt");
+        this.seriesFile = new File("lib/mediaMetaData/series.txt");
         this.fileHandler = new FileHandlerImpl();
     }
 
@@ -31,8 +31,8 @@ class FileHandlerImplTest {
 
     @Test
     void loadFile() {
-        assert(fileHandler.loadFile(moviesFile).size() > 0);
-        assert(fileHandler.loadFile(seriesFile).size() > 0);
+        assert(fileHandler.loadFile(moviesFile).size() == 100);
+        assert(fileHandler.loadFile(seriesFile).size() == 100);
     }
 
     @Test

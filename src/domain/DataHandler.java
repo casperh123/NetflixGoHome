@@ -1,9 +1,12 @@
 package domain;
 
 import data.FileHandler;
+import data.FileHandlerImpl;
 
-import java.awt.image.BufferedImage;
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.*;
 
 public class DataHandler {
@@ -12,8 +15,9 @@ public class DataHandler {
     private File seriesList;
 
     public DataHandler() {
-        movieList = new File("lib/mediaMetaData/film.txt");
-        seriesList = new File("lib/mediaMetaData/film.txt");
+        movieList = new File("lib/mediaMetaData/movies.txt");
+        seriesList = new File("lib/mediaMetaData/movies.txt");
+        fileHandler = new FileHandlerImpl();
     }
     public List<Media> assembleMovieList() {
 
@@ -26,7 +30,7 @@ public class DataHandler {
 
         return movieList;
     }
-    
+
     public List<Media> assembleSeriesList() {
         throw new UnsupportedOperationException();
     }
@@ -56,16 +60,21 @@ public class DataHandler {
         // Splits the genre entry into a new array, and saves this in an arrayList called genres
         ArrayList<String> genres = new ArrayList<>(Arrays.asList(dataEntries[2].split(",")));
         double rating = Double.parseDouble(dataEntries[3]);
-        //TODO Write proper implementation of getImage, so that it is not static.
-        //Image poster = FileHandler.getImage(title, "movie");
+        Image poster;
+
+        try {
+            poster = fileHandler.getImage(title, "movies");
+        } catch(IllegalArgumentException | IOException e) {
+            poster = null;
+            System.out.println("Critical Error: " + e.getMessage());
+        }
 
 
         if(mediaType.equals("movie")) {
-            //TODO Constructor contains placeholder Values. Replace Image with proper method call on FileHandler once implemented.
-           return new Movie(title, releaseYear, genres, rating, new BufferedImage(100, 100, 1));
+            return new Movie(title, releaseYear, genres, rating, poster);
         } else {
             //TODO Constructor contains placeholder variables to make tests executable. Replace Seasons and episodes with proper values. Same goes for Image.
-            return new Series(title, releaseYear, genres, rating, new BufferedImage(100, 100, 1), 10, new HashMap<Integer, Integer>());
+            return new Series(title, releaseYear, genres, rating, poster, 10, new HashMap<Integer, Integer>());
         }
     }
 }

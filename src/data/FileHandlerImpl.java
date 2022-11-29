@@ -2,8 +2,8 @@ package data;
 
 import org.jetbrains.annotations.NotNull;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,10 @@ public class FileHandlerImpl implements FileHandler {
             reader.close();
 
         } catch (FileNotFoundException e) {
+            //TODO ProperExceptionhandling
             System.out.println(e.getMessage());
         } catch (IOException e) {
+            //TODO Proper exception Handling.
             System.out.println("Hej du, Yoodle Doodle Dandy Yankee");
         }
 
@@ -78,8 +80,11 @@ public class FileHandlerImpl implements FileHandler {
         }
     }
 
-    public Image getImage(String title, String mediaType) {
-        //TODO Write proper getImage function, that actually returns an image
-        return new BufferedImage(100, 100, 2);
+    public Image getImage(String title, String mediaType) throws IllegalArgumentException, IOException {
+        try {
+            return ImageIO.read(new File("lib/" + mediaType + "/" + title + ".jpg"));
+        } catch (IOException | IllegalArgumentException e) {
+            return ImageIO.read(new File("lib/" + mediaType + "/placeholder.jpg"));
+        }
     }
 }
