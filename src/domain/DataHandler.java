@@ -22,13 +22,13 @@ public class DataHandler {
     public List<Media> assembleMovieList() {
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
-        List<Media> movieList = new ArrayList<>();
+        List<Media> mediaList = new ArrayList<>();
 
         for(String movieData : moviesMetaData) {
-            movieList.add(mediaCreator(movieData, "movie"));
+            mediaList.add(mediaCreator(movieData, "movie"));
         }
 
-        return movieList;
+        return mediaList;
     }
 
     public List<Media> assembleSeriesList() {
