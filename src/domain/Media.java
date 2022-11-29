@@ -1,14 +1,22 @@
 package domain;
-import java.awt.image.VolatileImage;
+
+import java.awt.*;
 import java.util.List;
 
 abstract class Media {
-
     protected String title;
     protected int releaseYear;
     protected List<String> genres;
     protected double rating;
-    protected VolatileImage poster;
+    protected Image poster;
+
+    public Media(String title, int releaseYear, List<String> genres, double rating, Image poster) {
+        this.title = title;
+        this.releaseYear = releaseYear;
+        this.genres = genres;
+        this.rating = rating;
+        this.poster = poster;
+    }
 
     public String getTitle() {
         return title;
@@ -26,7 +34,7 @@ abstract class Media {
         return rating;
     }
 
-    public VolatileImage getPoster() {
+    public Image getPoster() {
         return poster;
     }
 
