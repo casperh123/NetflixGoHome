@@ -70,7 +70,7 @@ public class DataHandler {
         }
 
 
-        if(mediaType.equals("movie")) {
+        if(mediaType.equals("movies")) {
             return new Movie(title, releaseYear, genres, rating, poster);
         } else {
             //TODO Constructor contains placeholder variables to make tests executable. Replace Seasons and episodes with proper values. Same goes for Image.
