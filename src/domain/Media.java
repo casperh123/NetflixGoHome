@@ -44,6 +44,17 @@ abstract class Media {
 
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+
+        String outputString = "";
+
+        outputString += "Title: " + title + ". ";
+        outputString += "Year of release: " + releaseYear + ". ";
+        outputString += "Genres: ";
+
+        for(String genre : genres) {
+            outputString += genre + " ";
+        }
+
+        return outputString;
     }
 }

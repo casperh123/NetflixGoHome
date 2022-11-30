@@ -24,4 +24,18 @@ public class Series extends Media{
     public Map<Integer, Integer> getEpisodesInSeason() {
         return episodesInSeason;
     }
+
+    @Override
+    public String toString() {
+
+        String outputString = "Series - "+ super.toString();
+        //TODO Proper implementation
+
+        for(int i = 0; i < episodesInSeason.size(); i ++) {
+            if(episodesInSeason.containsKey(i)) {
+                outputString += "Season " + i + ": " + episodesInSeason.get(i) + " episodes. ";
+            }
+        }
+        return outputString;
+    }
 }

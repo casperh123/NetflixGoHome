@@ -8,4 +8,9 @@ public class Movie extends Media{
         super(title, releaseYear, genres, rating, poster);
     }
 
+    @Override
+    public String toString() {
+        return "Movie - " + super.toString();
+    }
+
 }
