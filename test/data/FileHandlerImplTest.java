@@ -224,8 +224,12 @@ class FileHandlerImplTest {
         int testWidth = first.getWidth();
         int testHeight = first.getHeight();
 
-        for(int x = 0; x < testWidth; x++) {
-            for(int y = 0; y < testHeight; y++) {
+        if(testWidth != second.getWidth() && testHeight != second.getHeight()) {
+            return false;
+        }
+
+        for(int y = 0; y < testHeight; y++) {
+            for(int x = 0; x < testWidth; x++) {
                 if(first.getRGB(x, y) != second.getRGB(x, y)) {
                     return false;
                 }
