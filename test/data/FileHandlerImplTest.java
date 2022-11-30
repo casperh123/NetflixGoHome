@@ -34,25 +34,60 @@ class FileHandlerImplTest {
 
     @Test
     void loadFileContainsAllMedia() {
-        assert(fileHandler.loadFile(moviesFile).size() == 100);
-        assert(fileHandler.loadFile(seriesFile).size() == 100);
+        List<String> movieList;
+        List<String> seriesList;
+
+        try {
+            movieList = fileHandler.loadFile(moviesFile);
+            seriesList = fileHandler.loadFile(seriesFile);
+        } catch (IOException | IllegalArgumentException e) {
+            movieList = null;
+            seriesList = null;
+        }
+
+
+        assert(movieList != null && movieList.size() == 100);
+        assert(seriesList != null && seriesList.size() == 100);
     }
 
     @Test
     void saveFile() {
+
         File writeTestFile = new File("test/testLib/WriteTest.txt");
-        List<String> saveData = fileHandler.loadFile(writeTestFile);
+        List<String> saveData = new ArrayList<>();
+        List<String> comparisonData;
+        List<String> fileContentAfterWrite;
         Random random = new Random();
 
-        //Generate checksum to validate difference between new and old file
-        for(int i = 0; i < 5; i++) {
-            String randomNumber = Integer.toString(random.nextInt(100));
-            saveData.add(randomNumber);
+        try {
+            comparisonData = fileHandler.loadFile(writeTestFile);
+        } catch (IOException | IllegalArgumentException e) {
+            comparisonData = null;
         }
 
-        fileHandler.saveFileOverwrite(saveData, writeTestFile);
+        if(comparisonData != null) {
 
-        assert(fileHandler.loadFile(writeTestFile).equals(saveData));
+            //Generate checksum to validate difference between new and old file
+            for(int i = 0; i < 5; i++) {
+                String randomNumber = Integer.toString(random.nextInt(100));
+                saveData.add(randomNumber);
+                comparisonData.add(randomNumber);
+            }
+
+            try {
+                fileHandler.saveFile(saveData, writeTestFile);
+                fileContentAfterWrite = fileHandler.loadFile(writeTestFile);
+            } catch (IOException | IllegalArgumentException e) {
+                fileContentAfterWrite = null;
+            }
+
+            assert(fileContentAfterWrite != null);
+            assert(comparisonData.equals(fileContentAfterWrite));
+
+        } else {
+            assert(false);
+        }
+
 
     }
 
@@ -62,6 +97,7 @@ class FileHandlerImplTest {
 
         File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
         List<String> saveData = new ArrayList<>();
+        List<String> comparisonData;
         Random random = new Random();
 
         //Generate checksum to validate difference between new and old file
@@ -70,9 +106,22 @@ class FileHandlerImplTest {
             saveData.add(randomNumber);
         }
 
-        fileHandler.saveFileOverwrite(saveData, overwriteTestFile);
+        try {
+            fileHandler.saveFileOverwrite(saveData, overwriteTestFile);
+        } catch(IOException | IllegalArgumentException e) {
+            //TODO proper exception handling.
+            System.out.println("Error");
+        }
 
-        assert(fileHandler.loadFile(overwriteTestFile).equals(saveData));
+
+        try {
+            comparisonData = fileHandler.loadFile(overwriteTestFile);
+        } catch (IOException | IllegalArgumentException e) {
+            comparisonData = null;
+        }
+
+        assert(comparisonData != null);
+        assert(comparisonData.equals(saveData));
     }
 
     @Test

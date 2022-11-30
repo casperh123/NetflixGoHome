@@ -11,39 +11,41 @@ import java.util.List;
 public class FileHandlerImpl implements FileHandler {
 
     // reading file and returning as arrayList
-    public List<String> loadFile(File file) {
+    public List<String> loadFile(File file) throws IllegalArgumentException, IOException {
 
-        List<String> collectedData = new ArrayList<>();
+        List<String> loadedData = new ArrayList<>();
 
-        try {
-            FileReader fileReader = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileReader);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String nextInput;
 
             while ((nextInput = reader.readLine()) != null) {
-                collectedData.add(nextInput);
+                loadedData.add(nextInput);
             }
-
-            fileReader.close();
-            reader.close();
-
-        } catch (FileNotFoundException e) {
-            //TODO ProperExceptionhandling
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            //TODO Proper exception Handling.
-            System.out.println("Hej du, Yoodle Doodle Dandy Yankee");
         }
 
-        return collectedData;
+        return loadedData;
     }
 
+    public void saveFile(List<String> saveData, File file) throws IOException, NullPointerException {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
 
-    public void saveFile(List<String> saveData, File file) {
-        try {
+            if(file.length() > 0) {
+                writer.println();
+            }
+            //Print savaData to file, except last element of Array. Last element is printed separately
+            for (int i = 0; i < saveData.size() - 1; i++) {
+                writer.println(saveData.get(i));
+            }
 
-            PrintWriter writer = new PrintWriter(new FileWriter(file, true));
+            //Prints the last element of saveData without /n
+            writer.print(saveData.get(saveData.size() - 1));
+
+        }
+    }
+
+    public void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IllegalArgumentException, IOException {
+        try (PrintWriter writer = new PrintWriter(file)) {
 
             //Print savaData to file, except last element of Array. Last element is printed separately
             for (int i = 0; i < saveData.size() - 1; i++) {
@@ -53,30 +55,6 @@ public class FileHandlerImpl implements FileHandler {
             //Prints the last element of saveData without exiting with a /n
             writer.print(saveData.get(saveData.size() - 1));
 
-            writer.close();
-
-        } catch (NullPointerException | IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void saveFileOverwrite(@NotNull List<String> saveData, File file) {
-        try {
-
-            PrintWriter writer = new PrintWriter(file);
-
-            //Print savaData to file, except last element of Array. Last element is printed separately
-            for (int i = 0; i < saveData.size() - 1; i++) {
-                writer.println(saveData.get(i));
-            }
-
-            //Prints the last element of saveData without exiting with a /n
-            writer.print(saveData.get(saveData.size() - 1));
-
-            writer.close();
-
-        } catch (FileNotFoundException | NullPointerException e) {
-            System.out.println(e.getMessage());
         }
     }
 

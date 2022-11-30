@@ -19,7 +19,7 @@ public class DataHandler {
         seriesList = new File("lib/mediaMetaData/movies.txt");
         fileHandler = new FileHandlerImpl();
     }
-    public List<Media> assembleMovieList() {
+    public List<Media> assembleMovieList() throws IllegalArgumentException, IOException{
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
         List<Media> mediaList = new ArrayList<>();
@@ -66,6 +66,7 @@ public class DataHandler {
             try {
                 poster = fileHandler.getImage(title, "movie");
             } catch(IllegalArgumentException | IOException e) {
+                //TODO Proper exception handling
                 poster = null;
                 System.out.println("Critical Error: " + e.getMessage());
             }
@@ -76,6 +77,7 @@ public class DataHandler {
             try {
                 poster = fileHandler.getImage(title, "series");
             } catch(IllegalArgumentException | IOException e) {
+                //TODO Proper exception handling
                 poster = null;
                 System.out.println("Critical Error: " + e.getMessage());
             }
