@@ -76,109 +76,77 @@ class FileHandlerImplTest {
     }
 
     @Test
-    void getImageNotNullMovies() {
+    void getImageReturnsImageMovies() {
 
-        List<String> movieList = fileHandler.loadFile(moviesFile);
+        Image poster;
 
-        for(String movieEntry : movieList) {
-
-            String[] metaData = movieEntry.split(";");
-            Image poster;
-
-            try {
-                poster = fileHandler.getImage(metaData[0], "movie");
-            } catch (IllegalArgumentException | IOException e) {
-                //Uncorrectable Error. No Image will be displayed.
-                poster = null;
-            }
-
-            assert(poster != null);
-
+        try {
+            poster = fileHandler.getImage("12 Angry Men", "movie");
+        } catch (IllegalArgumentException | IOException e) {
+            //Uncorrectable Error. No Image will be displayed.
+            poster = null;
         }
+
+        assert(poster != null);
+
     }
 
     @Test
-    void getImageNotNullSeries() {
+    void getImageReturnsImageSeries() {
 
-        List<String> seriesList = fileHandler.loadFile(seriesFile);
+        Image poster;
 
-        for(String seriesEntry : seriesList) {
-
-            String[] metaData = seriesEntry.split(";");
-            Image poster;
-
-            try {
-                poster = fileHandler.getImage(metaData[0], "series");
-            } catch (IllegalArgumentException | IOException e) {
-                //Uncorrectable Error. No Image will be instantiated.
-                poster = null;
-            }
-
-            assert(poster != null);
-
+        try {
+            poster = fileHandler.getImage("24", "series");
+        } catch (IllegalArgumentException | IOException e) {
+            //Uncorrectable Error. No Image will be instantiated.
+            poster = null;
         }
+
+        assert(poster != null);
+
     }
 
     @Test
     void getImageNotPlaceholderMovies() {
 
-        List<String> movieList = fileHandler.loadFile(moviesFile);
         BufferedImage placeholder;
+        BufferedImage poster;
 
         try {
             placeholder = ImageIO.read(new File("lib/media/movieposters/Placeholder.jpg"));
+            poster = (BufferedImage) fileHandler.getImage("12 Angry Men", "movie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;
+            poster = null;
         }
 
-        for(String movieEntry : movieList) {
+        assert(poster != null);
+        assert(placeholder != null);
+        assert(!imageEquality(poster, placeholder));
 
-            String[] metaData = movieEntry.split(";");
-            BufferedImage poster;
-
-            try {
-                poster = (BufferedImage) fileHandler.getImage(metaData[0], "movie");
-            } catch (IllegalArgumentException | IOException e) {
-                //Uncorrectable Error. No Image will be displayed.
-                poster = null;
-            }
-
-            assert(poster != null);
-            assert(placeholder != null);
-            assert(!imageEquality(poster, placeholder));
-        }
     }
 
     @Test
     void getImageNotPlaceholderSeries() {
 
-        List<String> seriesList = fileHandler.loadFile(seriesFile);
         BufferedImage placeholder;
+        BufferedImage poster;
 
         try {
             placeholder = ImageIO.read(new File("lib/media/seriesposters/Placeholder.jpg"));
+            poster = (BufferedImage) fileHandler.getImage("24", "series");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;
+            poster = null;
         }
 
-        for(String seriesEntry : seriesList) {
+        assert(poster != null);
+        assert(placeholder != null);
+        assert(!imageEquality(poster, placeholder));
 
-            String[] metaData = seriesEntry.split(";");
-            BufferedImage poster;
-
-            try {
-                poster = (BufferedImage) fileHandler.getImage(metaData[0], "series");
-            } catch (IllegalArgumentException | IOException e) {
-                //Uncorrectable Error. No Image will be displayed.
-                poster = null;
-            }
-
-            assert(poster != null);
-            assert(placeholder != null);
-            assert(!imageEquality(poster, placeholder));
-        }
     }
 
     @Test
