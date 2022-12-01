@@ -33,7 +33,7 @@ public class MediaCollection {
     public void sortByReleaseYear() {
         throw new UnsupportedOperationException();
     }
-    public void sortByAlphabetical() {
+    public MediaCollection sortByAlphabetical() throws IOException {
         MediaCollection newCollection = new MediaCollection();
         for (Media media : media) {
             if (media.genres.contains(genre)) {
