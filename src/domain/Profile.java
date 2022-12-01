@@ -36,7 +36,7 @@ public class Profile {
     public void setName(String name) throws IllegalArgumentException {
         this.name = name;
     }
-    
+
     public String getName() {
         return name;
     }
