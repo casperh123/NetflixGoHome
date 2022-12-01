@@ -20,7 +20,4 @@ public class ProfileCollection {
         throw new UnsupportedOperationException();
     }
 
-    public void editProfileName(String name) {
-        throw new UnsupportedOperationException();
-    }
 }

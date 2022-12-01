@@ -15,7 +15,7 @@ public class MediaCollection {
         media = mediaListManager.assembleMediaList();
         genre = null;
     }
-    public MediaCollection sortByGenre(String genre) throws IOException{
+    public MediaCollection sortByGenre(String genre) throws IOException {
         MediaCollection newCollection = new MediaCollection();
         for (Media media : media) {
             if (media.genres.contains(genre)) {
@@ -34,12 +34,7 @@ public class MediaCollection {
         throw new UnsupportedOperationException();
     }
     public MediaCollection sortByAlphabetical() throws IOException {
-        MediaCollection newCollection = new MediaCollection();
-        for (Media media : media) {
-            if (media.genres.contains(genre)) {
-                newCollection.media.add(media);
-            }
-        }
-        return newCollection;
+        throw new UnsupportedOperationException();
     }
+
 }
