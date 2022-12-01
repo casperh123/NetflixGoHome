@@ -1,5 +1,5 @@
 package domain;
-import java.io.File;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +60,23 @@ public class Profile {
 
         return profileInfo;
     }
+
+    public String getPath() {
+        //String path =
+        return null;
+    }
+
+    @Override
+    public String toString() {
+
+        String outputString = "Id: " + id + " Name: " + name + " Favorites: ";
+
+        for(String favourite : favorites) {
+            outputString += favourite + " ";
+        }
+
+        return outputString;
+    }
+
 
 }

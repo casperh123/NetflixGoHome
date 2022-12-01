@@ -17,7 +17,7 @@ class FileHandlerImplTest {
     private FileHandler fileHandler;
     private File moviesFile;
     private File seriesFile;
-    private File seriesImagePlacerholder;
+    private File seriesImagePlaceholder;
     private File moviesImagePlaceholder;
 
     @BeforeEach
@@ -25,7 +25,7 @@ class FileHandlerImplTest {
         this.moviesFile = new File("lib/mediaMetaData/movies.txt");
         this.seriesFile = new File("lib/mediaMetaData/series.txt");
         this.moviesImagePlaceholder = new File("lib/media/seriesposters/Placeholder.jpg");
-        this.seriesImagePlacerholder = new File("lib/media/movieposters/Placeholder.jpg");
+        this.seriesImagePlaceholder = new File("lib/media/movieposters/Placeholder.jpg");
         this.fileHandler = new FileHandlerImpl();
     }
 
@@ -34,7 +34,7 @@ class FileHandlerImplTest {
         moviesFile = null;
         seriesFile = null;
         moviesImagePlaceholder = null;
-        seriesImagePlacerholder = null;
+        seriesImagePlaceholder = null;
         fileHandler = null;
 
     }
@@ -188,7 +188,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(seriesImagePlacerholder);
+            placeholder = ImageIO.read(seriesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("24", "series");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
@@ -228,7 +228,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(seriesImagePlacerholder);
+            placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "series");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
