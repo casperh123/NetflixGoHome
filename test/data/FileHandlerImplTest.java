@@ -22,10 +22,10 @@ class FileHandlerImplTest {
 
     @BeforeEach
     void setUp() {
-        this.moviesFile = new File("NetflixGoHome/lib/mediaMetaData/movies.txt");
-        this.seriesFile = new File("NetflixGoHome/lib/mediaMetaData/series.txt");
-        this.moviesImagePlaceholder = new File("NetflixGoHome/lib/media/seriesposters/Placeholder.jpg");
-        this.seriesImagePlacerholder = new File("NetflixGoHome/lib/media/movieposters/Placeholder.jpg");
+        this.moviesFile = new File("lib/mediaMetaData/movies.txt");
+        this.seriesFile = new File("lib/mediaMetaData/series.txt");
+        this.moviesImagePlaceholder = new File("lib/media/seriesposters/Placeholder.jpg");
+        this.seriesImagePlacerholder = new File("lib/media/movieposters/Placeholder.jpg");
         this.fileHandler = new FileHandlerImpl();
     }
 
@@ -60,7 +60,7 @@ class FileHandlerImplTest {
     @Test
     void saveFile() {
 
-        File writeTestFile = new File("NetflixGoHome/test/testLib/WriteTest.txt");
+        File writeTestFile = new File("test/testLib/WriteTest.txt");
         List<String> saveData = new ArrayList<>();
         List<String> comparisonData;
         List<String> fileContentAfterWrite;
@@ -99,7 +99,7 @@ class FileHandlerImplTest {
     @Test
     void saveFileOverwrite() {
 
-        File overwriteTestFile = new File("NetflixGoHome/test/testLib/overWriteTest.txt");
+        File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
         List<String> saveData = new ArrayList<>();
         List<String> comparisonData;
         Random random = new Random();

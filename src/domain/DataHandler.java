@@ -15,8 +15,8 @@ public class DataHandler {
     private File seriesList;
 
     public DataHandler() {
-        movieList = new File("NetflixGoHome/lib/mediaMetaData/movies.txt");
-        seriesList = new File("NetflixGoHome/lib/mediaMetaData/series.txt");
+        movieList = new File("lib/mediaMetaData/movies.txt");
+        seriesList = new File("lib/mediaMetaData/series.txt");
         fileHandler = new FileHandlerImpl();
     }
 
