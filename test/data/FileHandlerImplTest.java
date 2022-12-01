@@ -256,4 +256,11 @@ class FileHandlerImplTest {
         return true;
 
     }
+
+
+    @Test
+    void deleteProfile() {
+        File file = new File("lib/profiles/testProfile.txt");
+        file.delete();
+    }
 }
