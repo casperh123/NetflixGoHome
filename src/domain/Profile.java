@@ -7,15 +7,11 @@ public class Profile {
     private String name;
     private List<String> favorites;
     private int id;
-    private static int idCounter = 1;
-    private File profile;
 
-    public Profile(String name) {
-        id = idCounter;
+    public Profile(int id, String name, List<String> favorites) {
+        this.id = id;
         this.name = name;
-        favorites = new ArrayList<String>();
-        idCounter++;
-        profile = new File("NetflixGoHome/lib/profiles" + File.separator + id + ".txt");
+        this.favorites = favorites;
     }
 
     void addToFavorite(String mediaName) {

@@ -1,4 +1,5 @@
 package domain;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class ProfileCollection {
@@ -6,8 +7,8 @@ public class ProfileCollection {
     private DataHandler profileListManager;
     private Map<Integer, Profile> profileMap;
 
-    public void createProfile(String name) {
-        Profile profile = new Profile(name);
+    public void createProfile(int id, String name, ArrayList<String> favorites) {
+        Profile profile = new Profile(id, name, favorites);
     }
 
     public void deleteProfile(int id) {

@@ -2,6 +2,7 @@ package domain;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class MediaCollection {
 
@@ -33,6 +34,12 @@ public class MediaCollection {
         throw new UnsupportedOperationException();
     }
     public void sortByAlphabetical() {
-        throw new UnsupportedOperationException();
+        MediaCollection newCollection = new MediaCollection();
+        for (Media media : media) {
+            if (media.genres.contains(genre)) {
+                newCollection.media.add(media);
+            }
+        }
+        return newCollection;
     }
 }

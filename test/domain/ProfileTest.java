@@ -16,6 +16,6 @@ public class ProfileTest {
 
     @Test
     void creatProfileObject () {
-        Profile profile = new Profile("bob");
+
     }
 }

@@ -265,11 +265,4 @@ class FileHandlerImplTest {
         File file = new File("lib/profiles/profileExample.txt");
         file.delete();
     }
-
-
-    @Test
-    void deleteProfile() {
-        File file = new File("lib/profiles/testProfile.txt");
-        file.delete();
-    }
 }
