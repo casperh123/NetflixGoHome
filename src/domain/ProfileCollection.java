@@ -7,7 +7,7 @@ public class ProfileCollection {
     private Map<Integer, Profile> profileMap;
 
     public void createProfile(String name) {
-        throw new UnsupportedOperationException();
+        Profile profile = new Profile(name);
     }
 
     public void deleteProfile(int id) {

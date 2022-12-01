@@ -1,5 +1,7 @@
 package domain;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MediaCollection {
 
@@ -21,7 +23,9 @@ public class MediaCollection {
         }
         return newCollection;
     }
-
+    public MediaCollection sortByName(List<String> chosenMedia) {
+        throw new UnsupportedOperationException();
+    }
     public void sortByRating() {
         throw new UnsupportedOperationException();
     }

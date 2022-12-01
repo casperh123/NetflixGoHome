@@ -60,9 +60,9 @@ public class FileHandlerImpl implements FileHandler {
 
     public Image getImage(String title, String mediaType) throws IllegalArgumentException, IOException {
         try {
-            return ImageIO.read(new File("lib/media/" + mediaType + "posters/" + title + ".jpg"));
+            return ImageIO.read(new File("NetflixGoHome/lib/media/" + mediaType + "posters/" + title + ".jpg"));
         } catch (IOException | IllegalArgumentException e) {
-            return ImageIO.read(new File("lib/media/" + mediaType + "posters/Placeholder.jpg"));
+            return ImageIO.read(new File("NetflixGoHome/lib/media/" + mediaType + "posters/Placeholder.jpg"));
         }
     }
 }

@@ -23,6 +23,30 @@ class DataHandlerTest {
     }
 
     @Test
+    void assembleMediaList() {
+
+        List<Media> allMediaList;
+
+        try {
+            allMediaList = dataHandler.assembleMediaList();
+        } catch(IOException | IllegalArgumentException e) {
+            //TODO appropriate
+            System.out.println("Fuck");
+            allMediaList = null;
+        }
+
+        if (allMediaList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : allMediaList) {
+                System.out.println(movie);
+            }
+            assert(allMediaList.size() == 100);
+        }
+    }
+
+    @Test
     void assembleMovieList() {
 
         List<Media> movieList;
@@ -32,13 +56,18 @@ class DataHandlerTest {
         } catch(IOException | IllegalArgumentException e) {
             //TODO appropriate
             System.out.println("Fuck");
-            movieList = new ArrayList<>();
+            movieList = null;
         }
 
-        for(Media movie : movieList) {
-            System.out.println(movie);
+        if (movieList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : movieList) {
+                System.out.println(movie);
+            }
+            assert(movieList.size() == 100);
         }
-
     }
 
     @Test
@@ -51,11 +80,17 @@ class DataHandlerTest {
         } catch(IOException | IllegalArgumentException e) {
             //TODO appropriate
             System.out.println("Fuck");
-            seriesList = new ArrayList<>();
+            seriesList = null;
         }
 
-        for(Media series : seriesList) {
-            System.out.println(series);
+        if (seriesList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : seriesList) {
+                System.out.println(movie);
+            }
+            assert(seriesList.size() == 100);
         }
     }
 
