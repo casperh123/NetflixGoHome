@@ -45,6 +45,10 @@ public class Profile {
         return id;
     }
 
+    public List<String> getFavorites() {
+        return favorites;
+    }
+
     // Puts profile info into arrayList
     public ArrayList<String> profileInfoFormatter() {
 
