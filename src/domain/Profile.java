@@ -14,6 +14,7 @@ public class Profile {
         this.favorites = favorites;
     }
 
+    // Add mediaName to favoriteList if not already added
     void addToFavorite(String mediaName) {
         if (favorites.contains(mediaName)) {
             //TODO Create exception
@@ -21,9 +22,12 @@ public class Profile {
         } else {
             favorites.add(mediaName);
         }
+
     }
 
+    // If favoriteList contains mediaName, it removes it.
     void removeFromFavorite(String mediaName) {
+
         if (favorites.contains(mediaName)) {
             favorites.remove(mediaName);
         } else {
@@ -71,8 +75,9 @@ public class Profile {
 
         String outputString = "Id: " + id + " Name: " + name + " Favorites: ";
 
+        //TODO Do something about separator
         for(String favourite : favorites) {
-            outputString += favourite + " ";
+            outputString += favourite + ", ";
         }
 
         return outputString;

@@ -2,6 +2,7 @@ package domain;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 public class MediaCollection {
 
@@ -14,7 +15,7 @@ public class MediaCollection {
         media = mediaListManager.assembleMediaList();
         genre = null;
     }
-    public MediaCollection sortByGenre(String genre) throws IOException{
+    public MediaCollection sortByGenre(String genre) throws IOException {
         MediaCollection newCollection = new MediaCollection();
         for (Media media : media) {
             if (media.genres.contains(genre)) {
@@ -32,7 +33,8 @@ public class MediaCollection {
     public void sortByReleaseYear() {
         throw new UnsupportedOperationException();
     }
-    public void sortByAlphabetical() {
+    public MediaCollection sortByAlphabetical() throws IOException {
         throw new UnsupportedOperationException();
     }
+
 }
