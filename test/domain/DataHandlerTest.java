@@ -8,26 +8,27 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 class DataHandlerTest {
 
     private DataHandler dataHandler;
-    private FileHandler fileReader;
+    private FileHandler fileHandler;
     private File profileIds;
 
     @BeforeEach
     void setUp() {
         dataHandler = new DataHandler();
-        fileReader = new FileHandlerImpl();
+        fileHandler = new FileHandlerImpl();
         profileIds = new File("lib/profiles/profileIds.txt");
     }
 
     @AfterEach
     void tearDown() {
         dataHandler = null;
-        fileReader = null;
+        fileHandler = null;
         profileIds = null;
     }
 
@@ -39,22 +40,17 @@ class DataHandlerTest {
         try {
             allMediaList = dataHandler.assembleMediaList();
         } catch(IOException | IllegalArgumentException e) {
-            //TODO appropriate
-            System.out.println("Fuck");
             allMediaList = null;
         }
 
         if (allMediaList == null) {
             assert(false);
         } else {
-            //TODO Sys.out.println
-            for(Media movie : allMediaList) {
-                System.out.println(movie);
-            }
             assert(allMediaList.size() == 200);
         }
     }
 
+    //Done
     @Test
     void assembleMovieList() {
 
@@ -63,22 +59,17 @@ class DataHandlerTest {
         try {
             movieList = dataHandler.assembleMovieList();
         } catch(IOException | IllegalArgumentException e) {
-            //TODO appropriate
-            System.out.println("Fuck");
             movieList = null;
         }
 
         if (movieList == null) {
             assert(false);
         } else {
-            //TODO Sys.out.println
-            for(Media movie : movieList) {
-                System.out.println(movie);
-            }
             assert(movieList.size() == 100);
         }
     }
 
+    //Done
     @Test
     void assembleSeriesList() {
 
@@ -87,18 +78,12 @@ class DataHandlerTest {
         try {
             seriesList = dataHandler.assembleSeriesList();
         } catch(IOException | IllegalArgumentException e) {
-            //TODO appropriate
-            System.out.println("Fuck");
             seriesList = null;
         }
 
         if (seriesList == null) {
             assert(false);
         } else {
-            //TODO Sys.out.println
-            for(Media movie : seriesList) {
-                System.out.println(movie);
-            }
             assert(seriesList.size() == 100);
         }
     }
@@ -110,9 +95,8 @@ class DataHandlerTest {
         int profilesAmount;
 
         try {
-            profilesAmount = fileReader.loadFile(new File("lib/profiles/profileIds.txt")).size();
+            profilesAmount = fileHandler.loadFile(new File("lib/profiles/profileIds.txt")).size();
             profileMap = dataHandler.assembleProfileMap();
-
         } catch (IOException e) {
             profileMap = null;
             profilesAmount = 0;
@@ -127,6 +111,29 @@ class DataHandlerTest {
 
     @Test
     void saveProfile() {
+
+        String profileName = stringGenerator(10);
+        List<String> testFavorites = new ArrayList<>();
+        List<String> loadedProfileData;
+
+        for (int i = 0; i < 50; i++) {
+            testFavorites.add(stringGenerator(15));
+        }
+
+        Profile testProfile = new Profile(1026245, profileName, testFavorites);
+
+        try {
+            dataHandler.saveProfile(testProfile);
+            loadedProfileData = fileHandler.loadFile(new File("lib/profiles/1026245.txt"));
+        } catch (IOException e) {
+            loadedProfileData = null;
+        }
+
+        //TODO Finish
+        /*for (int i = 0; i < loadedProfileData.size(); i++) {
+
+        }*/
+
     }
 
     @Test
@@ -135,5 +142,19 @@ class DataHandlerTest {
 
     @Test
     void saveFavoritesToProfile() {
+    }
+
+    private String stringGenerator(int size) {
+
+        String randomString = "";
+        String lowercaseAlphabet = "abcdefghijklmn";
+
+        for (int i = 0; i < size; i++) {
+            int index = (int)(lowercaseAlphabet.length() * Math.random());
+            randomString += lowercaseAlphabet.charAt(index);
+        }
+
+        return randomString;
+
     }
 }

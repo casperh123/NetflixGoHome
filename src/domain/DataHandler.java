@@ -22,39 +22,40 @@ public class DataHandler {
         fileHandler = new FileHandlerImpl();
     }
 
-    public List<Media> assembleMediaList() throws IllegalArgumentException, IOException {
+    public List<Media> assembleMediaList() throws IOException {
 
-        List<Media> assembledMediaList = assembleMovieList();
+        List<Media> mediaList = new ArrayList<>();
 
-        assembledMediaList.addAll(assembleSeriesList());
+        mediaList.addAll(assembleMovieList());
+        mediaList.addAll(assembleSeriesList());
 
-        return assembledMediaList;
+        return mediaList;
     }
 
-    public List<Media> assembleMovieList() throws IllegalArgumentException, IOException {
+    public List<Media> assembleMovieList() throws IOException {
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
         List<Media> mediaList = new ArrayList<>();
 
-        for(String movieData : moviesMetaData) {
-            mediaList.add(movieCreator(movieData));
+        for(String movie : moviesMetaData) {
+            mediaList.add(movieCreator(movie));
         }
 
         return mediaList;
     }
 
-    public List<Media> assembleSeriesList() throws IllegalArgumentException, IOException {
+    public List<Media> assembleSeriesList() throws IOException {
         List<String> seriesMetaData = fileHandler.loadFile(seriesList);
         List<Media> mediaList = new ArrayList<>();
 
-        for(String seriesData : seriesMetaData) {
-            mediaList.add(seriesCreator(seriesData));
+        for(String series : seriesMetaData) {
+            mediaList.add(seriesCreator(series));
         }
 
         return mediaList;
     }
 
-    public Map<Integer, Profile> assembleProfileMap() throws IllegalArgumentException, IOException {
+    public Map<Integer, Profile> assembleProfileMap() throws IOException {
 
         Map<Integer, Profile> profileMap = new HashMap<>();
         //Fetch saved ids from profileIds.txt
@@ -85,26 +86,23 @@ public class DataHandler {
         return profileMap;
     }
 
-    public void saveProfile(Profile profile) {
+    public void saveProfile(Profile profile) throws IOException {
+
+        File profilePath = new File("lib/profiles/" + profile.getId() + "txt");
+        List<String> saveData = profile.profileInfoFormatter();
+
+        fileHandler.saveFileOverwrite(saveData, profilePath);
+    }
+
+    public void saveProfileMap(Map<Integer, Profile> profileMap) throws IOException{
 
         List<String> saveData = new ArrayList<>();
-        saveData.add(Integer.toString(profile.getId()));
-        saveData.add(profile.getName());
-        saveData.addAll(profile.getFavorites());
 
-        try {
-            fileHandler.saveFileOverwrite(saveData, new File("lib/profiles/" + profile.getId() + "txt"));
-        } catch (IllegalArgumentException | IOException e) {
-            System.out.println("Fuck");
+        for(int id : profileMap.keySet()) {
+            Profile profile = profileMap.get(id);
+            saveData.add(Integer.toString(profile.getId()));
         }
-    }
-
-    public void saveProfileMap() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void saveFavoritesToProfile(int id) {
-        throw new UnsupportedOperationException();
+        fileHandler.saveFileOverwrite(saveData, profileIds);
     }
 
     private Media movieCreator(String data) {
