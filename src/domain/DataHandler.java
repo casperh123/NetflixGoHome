@@ -119,7 +119,6 @@ public class DataHandler {
 
             //TODO Constructor contains placeholder variables to make tests executable. Replace Seasons and episodes with proper values. Same goes for Image.
             return new Series(title, releaseYear, genres, rating, poster, seasons, seasonsEpisodes);
-
     }
 
     private String[] inputSanitizer(String input) {
@@ -137,7 +136,6 @@ public class DataHandler {
                 sanitizedArray[i] = inputSpaceSanitizer(dataEntries[i]);
             }
         }
-
 
         return sanitizedArray;
     }

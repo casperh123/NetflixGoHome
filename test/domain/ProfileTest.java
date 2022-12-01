@@ -15,7 +15,5 @@ public class ProfileTest {
     @AfterEach
 
     @Test
-    void creatProfileObject () {
 
-    }
 }
