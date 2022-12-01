@@ -88,7 +88,15 @@ public class DataHandler {
     public void saveProfile(Profile profile) {
 
         List<String> saveData = new ArrayList<>();
-        
+        saveData.add(Integer.toString(profile.getId()));
+        saveData.add(profile.getName());
+        saveData.addAll(profile.getFavorites());
+
+        try {
+            fileHandler.saveFileOverwrite(saveData, new File("lib/profiles/" + profile.getId() + "txt"));
+        } catch (IllegalArgumentException | IOException e) {
+            System.out.println("Fuck");
+        }
     }
 
     public void saveProfileMap() {

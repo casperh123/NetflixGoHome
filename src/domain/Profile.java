@@ -36,6 +36,10 @@ public class Profile {
         return id;
     }
 
+    public List<String> getFavorites() {
+        return favorites;
+    }
+
     public String getPath() {
         //String path =
         return null;
