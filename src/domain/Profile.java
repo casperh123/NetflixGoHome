@@ -15,20 +15,28 @@ public class Profile {
     }
 
     void addToFavorite(String mediaName) {
-        favorites.add(mediaName);
-
+        if (favorites.contains(mediaName)) {
+            //TODO Create exception
+            throw new UnsupportedOperationException();
+        } else {
+            favorites.add(mediaName);
+        }
     }
 
-    void deleteFromFavorite(String mediaName) {
-        favorites.remove(mediaName);
-        //TODO save in profile data
+    void removeFromFavorite(String mediaName) {
+        if (favorites.contains(mediaName)) {
+            favorites.remove(mediaName);
+        } else {
+            //TODO Create exception
+            throw new UnsupportedOperationException();
+        }
     }
 
-    public void setName(String name) {
+    //TODO Sanitize input
+    public void setName(String name) throws IllegalArgumentException {
         this.name = name;
-        //TODO save in profile data
     }
-
+    
     public String getName() {
         return name;
     }
@@ -37,10 +45,16 @@ public class Profile {
         return id;
     }
 
-    public String getPath() {
-        //String path =
-        return null;
-    }
+    // Puts profile info into arrayList
+    public ArrayList<String> profileInfoFormatter() {
 
+        ArrayList<String> profileInfo = new ArrayList<>();
+
+        profileInfo.add(String.valueOf(getId()));
+        profileInfo.add(getName());
+        profileInfo.addAll(favorites);
+
+        return profileInfo;
+    }
 
 }
