@@ -15,11 +15,21 @@ public class DataHandler {
     private File seriesList;
 
     public DataHandler() {
-        movieList = new File("lib/mediaMetaData/movies.txt");
-        seriesList = new File("lib/mediaMetaData/series.txt");
+        movieList = new File("NetflixGoHome/lib/mediaMetaData/movies.txt");
+        seriesList = new File("NetflixGoHome/lib/mediaMetaData/series.txt");
         fileHandler = new FileHandlerImpl();
     }
-    public List<Media> assembleMovieList() throws IllegalArgumentException, IOException{
+
+    public List<Media> assembleMediaList() throws IllegalArgumentException, IOException {
+
+        List<Media> assembledMediaList = assembleMovieList();
+
+        assembledMediaList.addAll(assembleSeriesList());
+
+        return assembledMediaList;
+    }
+
+    public List<Media> assembleMovieList() throws IllegalArgumentException, IOException {
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
         List<Media> mediaList = new ArrayList<>();

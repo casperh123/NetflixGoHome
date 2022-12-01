@@ -20,10 +20,17 @@ public class Profile {
 
     void addToFavorite(String mediaName) {
         favorites.add(mediaName);
+
     }
 
     void deleteFromFavorite(String mediaName) {
-        throw new UnsupportedOperationException();
+        favorites.remove(mediaName);
+        //TODO save in profile data
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        //TODO save in profile data
     }
 
     public String getName() {
@@ -34,7 +41,10 @@ public class Profile {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getPath() {
+        //String path =
+        return null;
     }
+
+
 }

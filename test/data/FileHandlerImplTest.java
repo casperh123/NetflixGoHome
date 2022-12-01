@@ -17,11 +17,15 @@ class FileHandlerImplTest {
     private FileHandler fileHandler;
     private File moviesFile;
     private File seriesFile;
+    private File seriesImagePlacerholder;
+    private File moviesImagePlaceholder;
 
     @BeforeEach
     void setUp() {
-        this.moviesFile = new File("lib/mediaMetaData/movies.txt");
-        this.seriesFile = new File("lib/mediaMetaData/series.txt");
+        this.moviesFile = new File("NetflixGoHome/lib/mediaMetaData/movies.txt");
+        this.seriesFile = new File("NetflixGoHome/lib/mediaMetaData/series.txt");
+        this.moviesImagePlaceholder = new File("NetflixGoHome/lib/media/seriesposters/Placeholder.jpg");
+        this.seriesImagePlacerholder = new File("NetflixGoHome/lib/media/movieposters/Placeholder.jpg");
         this.fileHandler = new FileHandlerImpl();
     }
 
@@ -29,7 +33,10 @@ class FileHandlerImplTest {
     void tearDown() {
         moviesFile = null;
         seriesFile = null;
+        moviesImagePlaceholder = null;
+        seriesImagePlacerholder = null;
         fileHandler = null;
+
     }
 
     @Test
@@ -53,7 +60,7 @@ class FileHandlerImplTest {
     @Test
     void saveFile() {
 
-        File writeTestFile = new File("test/testLib/WriteTest.txt");
+        File writeTestFile = new File("NetflixGoHome/test/testLib/WriteTest.txt");
         List<String> saveData = new ArrayList<>();
         List<String> comparisonData;
         List<String> fileContentAfterWrite;
@@ -65,8 +72,9 @@ class FileHandlerImplTest {
             comparisonData = null;
         }
 
-        if(comparisonData != null) {
-
+        if(comparisonData == null) {
+            assert(false);
+        } else {
             //Generate checksum to validate difference between new and old file
             for(int i = 0; i < 5; i++) {
                 String randomNumber = Integer.toString(random.nextInt(100));
@@ -83,19 +91,15 @@ class FileHandlerImplTest {
 
             assert(fileContentAfterWrite != null);
             assert(comparisonData.equals(fileContentAfterWrite));
-
-        } else {
-            assert(false);
         }
 
 
     }
 
-
     @Test
     void saveFileOverwrite() {
 
-        File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
+        File overwriteTestFile = new File("NetflixGoHome/test/testLib/overWriteTest.txt");
         List<String> saveData = new ArrayList<>();
         List<String> comparisonData;
         Random random = new Random();
@@ -163,7 +167,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(new File("lib/media/movieposters/Placeholder.jpg"));
+            placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("12 Angry Men", "movie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
@@ -184,7 +188,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(new File("lib/media/seriesposters/Placeholder.jpg"));
+            placeholder = ImageIO.read(seriesImagePlacerholder);
             poster = (BufferedImage) fileHandler.getImage("24", "series");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
@@ -205,7 +209,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(new File("lib/media/movieposters/Placeholder.jpg"));
+            placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "movie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
@@ -224,7 +228,7 @@ class FileHandlerImplTest {
         BufferedImage poster;
 
         try {
-            placeholder = ImageIO.read(new File("lib/media/seriesposters/Placeholder.jpg"));
+            placeholder = ImageIO.read(seriesImagePlacerholder);
             poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "series");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
@@ -254,7 +258,12 @@ class FileHandlerImplTest {
         }
 
         return true;
+    }
 
+    @Test
+    void deleteProfile() {
+        File file = new File("lib/profiles/profileExample.txt");
+        file.delete();
     }
 
 

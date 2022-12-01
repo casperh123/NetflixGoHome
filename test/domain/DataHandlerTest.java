@@ -23,6 +23,30 @@ class DataHandlerTest {
     }
 
     @Test
+    void assembleMediaList() {
+
+        List<Media> allMediaList;
+
+        try {
+            allMediaList = dataHandler.assembleMediaList();
+        } catch(IOException | IllegalArgumentException e) {
+            //TODO appropriate
+            System.out.println("Fuck");
+            allMediaList = null;
+        }
+
+        if (allMediaList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : allMediaList) {
+                System.out.println(movie);
+            }
+            assert(allMediaList.size() == 100);
+        }
+    }
+
+    @Test
     void assembleMovieList() {
 
         List<Media> movieList;
