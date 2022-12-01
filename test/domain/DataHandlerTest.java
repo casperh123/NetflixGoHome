@@ -1,24 +1,34 @@
 package domain;
 
+import data.FileHandler;
+import data.FileHandlerImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 class DataHandlerTest {
 
     private DataHandler dataHandler;
+    private FileHandler fileReader;
+    private File profileIds;
 
     @BeforeEach
     void setUp() {
         dataHandler = new DataHandler();
+        fileReader = new FileHandlerImpl();
+        profileIds = new File("lib/profiles/profileIds.txt");
     }
 
     @AfterEach
     void tearDown() {
         dataHandler = null;
+        fileReader = null;
+        profileIds = null;
     }
 
     @Test
@@ -95,6 +105,24 @@ class DataHandlerTest {
 
     @Test
     void assembleProfileMap() {
+
+        Map<Integer, Profile> profileMap;
+        int profilesAmount;
+
+        try {
+            profilesAmount = fileReader.loadFile(new File("lib/profiles/profileIds.txt")).size();
+            profileMap = dataHandler.assembleProfileMap();
+
+        } catch (IOException e) {
+            profileMap = null;
+            profilesAmount = 0;
+        }
+
+        if (profileMap == null) {
+            assert(false);
+        } else {
+            assert(profileMap.keySet().size() == profilesAmount );
+        }
     }
 
     @Test

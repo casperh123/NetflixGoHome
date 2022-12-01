@@ -13,10 +13,12 @@ public class DataHandler {
     private FileHandler fileHandler;
     private File movieList;
     private File seriesList;
+    private File profileIds;
 
     public DataHandler() {
         movieList = new File("lib/mediaMetaData/movies.txt");
         seriesList = new File("lib/mediaMetaData/series.txt");
+        profileIds = new File("lib/profiles/profileIds.txt");
         fileHandler = new FileHandlerImpl();
     }
 
@@ -52,12 +54,41 @@ public class DataHandler {
         return mediaList;
     }
 
-    public Map<Integer, Profile> assembleProfileMap() {
-        throw new UnsupportedOperationException();
+    public Map<Integer, Profile> assembleProfileMap() throws IllegalArgumentException, IOException {
+
+        Map<Integer, Profile> profileMap = new HashMap<>();
+        //Fetch saved ids from profileIds.txt
+        List<String> idsToLoad = fileHandler.loadFile(profileIds);
+
+        //Fetch data from each individual profile file based on id.
+        for (String profileId : idsToLoad) {
+
+            List<String> profileData = fileHandler.loadFile(new File("lib/profiles/" + profileId + ".txt"));
+
+            String title = null;
+            int id = -1;
+            List<String> favourites = new ArrayList<>();
+
+
+            for (int i = 0; i < profileData.size(); i++) {
+
+                if(i == 0) {
+                    id = Integer.parseInt(profileData.get(i));
+                } else if(i == 1) {
+                    title = profileData.get(i);
+                } else {
+                    favourites.add(profileData.get(i));
+                }
+            }
+            profileMap.merge(id, new Profile(id, title, favourites), (a,b) -> a = b);
+        }
+        return profileMap;
     }
 
-    public void saveProfile() {
-        throw new UnsupportedOperationException();
+    public void saveProfile(Profile profile) {
+
+        List<String> saveData = new ArrayList<>();
+        
     }
 
     public void saveProfileMap() {
