@@ -22,7 +22,6 @@ public class Profile {
         } else {
             favorites.add(mediaName);
         }
-
     }
 
     // If favoriteList contains mediaName, it removes it.

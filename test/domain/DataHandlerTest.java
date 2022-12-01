@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class DataHandlerTest {
 
     private DataHandler dataHandler;
@@ -35,18 +37,18 @@ class DataHandlerTest {
     @Test
     void assembleMediaList() {
 
-        List<Media> allMediaList;
+        List<Media> mediaList;
 
         try {
-            allMediaList = dataHandler.assembleMediaList();
+            mediaList = dataHandler.assembleMediaList();
         } catch(IOException | IllegalArgumentException e) {
-            allMediaList = null;
+            mediaList = null;
         }
 
-        if (allMediaList == null) {
+        if (mediaList == null) {
             assert(false);
         } else {
-            assert(allMediaList.size() == 200);
+            assert(mediaList.size() == 200);
         }
     }
 
@@ -112,6 +114,7 @@ class DataHandlerTest {
     @Test
     void saveProfile() {
 
+        int testId = 1026245;
         String profileName = stringGenerator(10);
         List<String> testFavorites = new ArrayList<>();
         List<String> loadedProfileData;
@@ -120,7 +123,7 @@ class DataHandlerTest {
             testFavorites.add(stringGenerator(15));
         }
 
-        Profile testProfile = new Profile(1026245, profileName, testFavorites);
+        Profile testProfile = new Profile(testId, profileName, testFavorites);
 
         try {
             dataHandler.saveProfile(testProfile);
@@ -129,11 +132,19 @@ class DataHandlerTest {
             loadedProfileData = null;
         }
 
-        //TODO Finish
-        /*for (int i = 0; i < loadedProfileData.size(); i++) {
-
-        }*/
-
+        if(loadedProfileData == null) {
+            assert(false);
+        } else {
+            for (int i = 0; i < loadedProfileData.size(); i++) {
+                if(i == 0) {
+                    assertEquals(Integer.parseInt(loadedProfileData.get(i)), testId);
+                } else if (i == 1) {
+                    assertEquals(loadedProfileData.get(i), profileName);
+                } else {
+                    assertEquals(loadedProfileData.get(i), testFavorites.get(i - 2));
+                }
+            }
+        }
     }
 
     @Test

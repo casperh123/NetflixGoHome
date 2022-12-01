@@ -45,6 +45,7 @@ public class DataHandler {
     }
 
     public List<Media> assembleSeriesList() throws IOException {
+
         List<String> seriesMetaData = fileHandler.loadFile(seriesList);
         List<Media> mediaList = new ArrayList<>();
 
@@ -61,7 +62,7 @@ public class DataHandler {
         //Fetch saved ids from profileIds.txt
         List<String> idsToLoad = fileHandler.loadFile(profileIds);
 
-        //Fetch data from each individual profile file based on id.
+        //Fetch data from each individual profile file based on given id.
         for (String profileId : idsToLoad) {
 
             List<String> profileData = fileHandler.loadFile(new File("lib/profiles/" + profileId + ".txt"));
@@ -81,14 +82,14 @@ public class DataHandler {
                     favourites.add(profileData.get(i));
                 }
             }
-            profileMap.merge(id, new Profile(id, title, favourites), (a,b) -> a = b);
+            profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
         }
         return profileMap;
     }
 
     public void saveProfile(Profile profile) throws IOException {
 
-        File profilePath = new File("lib/profiles/" + profile.getId() + "txt");
+        File profilePath = new File("lib/profiles/" + profile.getId() + ".txt");
         List<String> saveData = profile.profileInfoFormatter();
 
         fileHandler.saveFileOverwrite(saveData, profilePath);
