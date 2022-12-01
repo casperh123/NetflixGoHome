@@ -16,7 +16,7 @@ public class Profile {
     }
 
     void addToFavorite(String mediaName) {
-        throw new UnsupportedOperationException();
+        favorites.add(mediaName);
     }
 
     void deleteFromFavorite(String mediaName) {

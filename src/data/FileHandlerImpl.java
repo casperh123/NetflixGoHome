@@ -27,7 +27,7 @@ public class FileHandlerImpl implements FileHandler {
         return loadedData;
     }
 
-    public void saveFile(List<String> saveData, File file) throws IOException, NullPointerException {
+    public void saveFile(@NotNull List<String> saveData, File file) throws IOException, NullPointerException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
 
             if(file.length() > 0) {

@@ -32,13 +32,18 @@ class DataHandlerTest {
         } catch(IOException | IllegalArgumentException e) {
             //TODO appropriate
             System.out.println("Fuck");
-            movieList = new ArrayList<>();
+            movieList = null;
         }
 
-        for(Media movie : movieList) {
-            System.out.println(movie);
+        if (movieList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : movieList) {
+                System.out.println(movie);
+            }
+            assert(movieList.size() == 100);
         }
-
     }
 
     @Test
@@ -51,11 +56,17 @@ class DataHandlerTest {
         } catch(IOException | IllegalArgumentException e) {
             //TODO appropriate
             System.out.println("Fuck");
-            seriesList = new ArrayList<>();
+            seriesList = null;
         }
 
-        for(Media series : seriesList) {
-            System.out.println(series);
+        if (seriesList == null) {
+            assert(false);
+        } else {
+            //TODO Sys.out.println
+            for(Media movie : seriesList) {
+                System.out.println(movie);
+            }
+            assert(seriesList.size() == 100);
         }
     }
 
