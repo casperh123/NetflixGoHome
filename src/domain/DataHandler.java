@@ -16,8 +16,8 @@ public class DataHandler {
     private File profileIds;
 
     public DataHandler() {
-        movieList = new File("lib/mediaMetaData/movies.txt");
-        seriesList = new File("lib/mediaMetaData/series.txt");
+        movieList = new File("lib/mediaMetaData/film.txt");
+        seriesList = new File("lib/mediaMetaData/serier.txt");
         profileIds = new File("lib/profiles/profileIds.txt");
         fileHandler = new FileHandlerImpl();
     }
@@ -120,7 +120,7 @@ public class DataHandler {
         int seasons;
 
             try {
-                poster = fileHandler.getImage(title, "movie");
+                poster = fileHandler.getImage(title, "film");
             } catch (IllegalArgumentException | IOException e) {
                 //TODO Proper exception handling
                 poster = null;
@@ -148,7 +148,7 @@ public class DataHandler {
 
         //TODO clean up map and seasons
             try {
-                poster = fileHandler.getImage(title, "series");
+                poster = fileHandler.getImage(title, "serie");
             } catch(IllegalArgumentException | IOException e) {
                 //TODO Proper exception handling
                 poster = null;
@@ -169,28 +169,14 @@ public class DataHandler {
             if (i == 0) {
                 sanitizedArray[i] = dataEntries[i];
             } else if (i == 3) {
-                sanitizedArray[i] = inputSpaceSanitizer(dataEntries[i].replace(',', '.'));
+                sanitizedArray[i] = dataEntries[i].replace(',', '.').replace(" ", "");
             } else {
-                sanitizedArray[i] = inputSpaceSanitizer(dataEntries[i]);
+                sanitizedArray[i] = dataEntries[i].replace(" ", "");
             }
         }
 
         return sanitizedArray;
     }
-
-    private String inputSpaceSanitizer(String input) {
-
-        StringBuilder outputString = new StringBuilder();
-
-        for(int i = 0; i < input.length(); i++) {
-            if(input.charAt(i) != ' ') {
-                outputString.append(input.charAt(i));
-            }
-        }
-
-        return outputString.toString();
-    }
-
     private Map<Integer, Integer> seasonEpisodeMapAssembler(String[] input) {
 
         Map<Integer, Integer> seasonEpisodeMap = new HashMap<>();

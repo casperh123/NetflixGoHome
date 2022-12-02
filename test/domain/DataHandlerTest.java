@@ -64,6 +64,9 @@ class DataHandlerTest {
             movieList = null;
         }
 
+        for(Media media : movieList) {
+            System.out.println(media.toString());
+        }
         if (movieList == null) {
             assert(false);
         } else {
@@ -81,6 +84,10 @@ class DataHandlerTest {
             seriesList = dataHandler.assembleSeriesList();
         } catch(IOException | IllegalArgumentException e) {
             seriesList = null;
+        }
+
+        for(Media media : seriesList) {
+            System.out.println(media.toString());
         }
 
         if (seriesList == null) {

@@ -22,10 +22,10 @@ class FileHandlerImplTest {
 
     @BeforeEach
     void setUp() {
-        this.moviesFile = new File("lib/mediaMetaData/movies.txt");
-        this.seriesFile = new File("lib/mediaMetaData/series.txt");
-        this.moviesImagePlaceholder = new File("lib/media/seriesposters/Placeholder.jpg");
-        this.seriesImagePlaceholder = new File("lib/media/movieposters/Placeholder.jpg");
+        this.moviesFile = new File("lib/mediaMetaData/film.txt");
+        this.seriesFile = new File("lib/mediaMetaData/serier.txt");
+        this.moviesImagePlaceholder = new File("lib/media/filmplakater/Placeholder.jpg");
+        this.seriesImagePlaceholder = new File("lib/media/serieforsider/Placeholder.jpg");
         this.fileHandler = new FileHandlerImpl();
     }
 
@@ -134,7 +134,7 @@ class FileHandlerImplTest {
         Image poster;
 
         try {
-            poster = fileHandler.getImage("12 Angry Men", "movie");
+            poster = fileHandler.getImage("12 Angry Men", "film");
         } catch (IllegalArgumentException | IOException e) {
             //Uncorrectable Error. No Image will be displayed.
             poster = null;
@@ -150,7 +150,7 @@ class FileHandlerImplTest {
         Image poster;
 
         try {
-            poster = fileHandler.getImage("24", "series");
+            poster = fileHandler.getImage("24", "serie");
         } catch (IllegalArgumentException | IOException e) {
             //Uncorrectable Error. No Image will be instantiated.
             poster = null;
@@ -168,7 +168,7 @@ class FileHandlerImplTest {
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
-            poster = (BufferedImage) fileHandler.getImage("12 Angry Men", "movie");
+            poster = (BufferedImage) fileHandler.getImage("12 Angry Men", "film");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;
@@ -189,7 +189,7 @@ class FileHandlerImplTest {
 
         try {
             placeholder = ImageIO.read(seriesImagePlaceholder);
-            poster = (BufferedImage) fileHandler.getImage("24", "series");
+            poster = (BufferedImage) fileHandler.getImage("24", "serie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;
@@ -210,7 +210,7 @@ class FileHandlerImplTest {
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
-            poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "movie");
+            poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "film");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;
@@ -229,7 +229,7 @@ class FileHandlerImplTest {
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
-            poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "series");
+            poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "serie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
             placeholder = null;

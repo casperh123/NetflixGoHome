@@ -59,10 +59,19 @@ public class FileHandlerImpl implements FileHandler {
     }
 
     public Image getImage(String title, String mediaType) throws IllegalArgumentException, IOException {
-        try {
-            return ImageIO.read(new File("lib/media/" + mediaType + "posters/" + title + ".jpg"));
-        } catch (IOException | IllegalArgumentException e) {
-            return ImageIO.read(new File("lib/media/" + mediaType + "posters/Placeholder.jpg"));
+        if(mediaType.equals("film")) {
+            try {
+                return ImageIO.read(new File("lib/media/" + mediaType + "plakater/" + title + ".jpg"));
+            } catch (IOException | IllegalArgumentException e) {
+                return ImageIO.read(new File("lib/media/" + mediaType + "plakater/Placeholder.jpg"));
+            }
+        } else if (mediaType.equals("serie")) {
+            try {
+                return ImageIO.read(new File("lib/media/" + mediaType + "forsider/" + title + ".jpg"));
+            } catch (IOException | IllegalArgumentException e) {
+                return ImageIO.read(new File("lib/media/" + mediaType + "forsider/Placeholder.jpg"));
+            }
         }
+        return null;
     }
 }
