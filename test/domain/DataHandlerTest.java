@@ -154,10 +154,12 @@ class DataHandlerTest {
         }
     }
 
+    //TODO Write proper test
     @Test
     void saveProfileMap() {
     }
 
+    //TODO decide on whether or not to keep this method, when we overwrite the profile file when saving.
     @Test
     void saveFavoritesToProfile() {
     }
