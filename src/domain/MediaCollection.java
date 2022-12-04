@@ -1,10 +1,9 @@
 package domain;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Collections;
 
 public class MediaCollection {
 
@@ -17,10 +16,7 @@ public class MediaCollection {
         media = mediaListManager.assembleMediaList();
         genre = null;
     }
-<<<<<<< HEAD
-    public MediaCollection sortByGenre(String genre) throws IOException {
-        MediaCollection newCollection = new MediaCollection();
-=======
+
     public MediaCollection(String genre) throws IOException {
         mediaListManager = new DataHandler();
         media = mediaListManager.assembleMediaList();
@@ -29,7 +25,6 @@ public class MediaCollection {
     public MediaCollection sortByGenre(String genre) throws IOException{
         MediaCollection sortedCollection = new MediaCollection(genre);
         // For the object "media" of type Media in the list "media", where the list is a field for MediaCollection
->>>>>>> Mag's-Branch
         for (Media media : media) {
             if (media.getGenres().contains(genre)) {
                 sortedCollection.media.add(media);
@@ -55,10 +50,6 @@ public class MediaCollection {
     public void sortByReleaseYear() {
         throw new UnsupportedOperationException();
     }
-<<<<<<< HEAD
-    public MediaCollection sortByAlphabetical() throws IOException {
-        throw new UnsupportedOperationException();
-=======
 
     public DataHandler getMediaListManager() {
         return mediaListManager;
@@ -80,7 +71,6 @@ public class MediaCollection {
         }
         Collections.sort(titleList);
          media = sortByName(titleList).media;
->>>>>>> Mag's-Branch
     }
 
 }
