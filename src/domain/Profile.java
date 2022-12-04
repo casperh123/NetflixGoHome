@@ -16,6 +16,7 @@ public class Profile {
 
     // Add mediaName to favoriteList if not already added
     void addToFavorite(String mediaName) {
+
         if (favorites.contains(mediaName)) {
             //TODO Create exception
             throw new UnsupportedOperationException();
@@ -33,6 +34,7 @@ public class Profile {
             //TODO Create exception
             throw new UnsupportedOperationException();
         }
+
     }
 
     //TODO Sanitize input
