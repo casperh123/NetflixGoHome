@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 class FileHandlerImplTest {
     private FileHandler fileHandler;
     private File moviesFile;
@@ -41,20 +43,19 @@ class FileHandlerImplTest {
 
     @Test
     void loadFileContainsAllMedia() {
-        List<String> movieList;
-        List<String> seriesList;
+        List<String> movieList = null;
+        List<String> seriesList = null;
 
         try {
             movieList = fileHandler.loadFile(moviesFile);
             seriesList = fileHandler.loadFile(seriesFile);
         } catch (IOException | IllegalArgumentException e) {
-            movieList = null;
-            seriesList = null;
+            fail("movieList or seriesList could not be loaded");
         }
 
 
-        assert(movieList != null && movieList.size() == 100);
-        assert(seriesList != null && seriesList.size() == 100);
+        assert(movieList.size() == 100);
+        assert(seriesList.size() == 100);
     }
 
     @Test
@@ -62,38 +63,31 @@ class FileHandlerImplTest {
 
         File writeTestFile = new File("test/testLib/WriteTest.txt");
         List<String> saveData = new ArrayList<>();
-        List<String> comparisonData;
-        List<String> fileContentAfterWrite;
+        List<String> comparisonData = null;
+        List<String> fileContentAfterWrite = null;
         Random random = new Random();
 
         try {
             comparisonData = fileHandler.loadFile(writeTestFile);
         } catch (IOException | IllegalArgumentException e) {
-            comparisonData = null;
+            fail("comparisonData could not be loaded");
+        }
+        //Generate checksum to validate difference between new and old file
+        for(int i = 0; i < 5; i++) {
+            String randomNumber = Integer.toString(random.nextInt(100));
+            saveData.add(randomNumber);
+            comparisonData.add(randomNumber);
         }
 
-        if(comparisonData == null) {
-            assert(false);
-        } else {
-            //Generate checksum to validate difference between new and old file
-            for(int i = 0; i < 5; i++) {
-                String randomNumber = Integer.toString(random.nextInt(100));
-                saveData.add(randomNumber);
-                comparisonData.add(randomNumber);
-            }
-
-            try {
-                fileHandler.saveFile(saveData, writeTestFile);
-                fileContentAfterWrite = fileHandler.loadFile(writeTestFile);
-            } catch (IOException | IllegalArgumentException e) {
-                fileContentAfterWrite = null;
-            }
-
-            assert(fileContentAfterWrite != null);
-            assert(comparisonData.equals(fileContentAfterWrite));
+        try {
+            fileHandler.saveFile(saveData, writeTestFile);
+            fileContentAfterWrite = fileHandler.loadFile(writeTestFile);
+        } catch (IOException | IllegalArgumentException e) {
+            fail("saveData was not saved, or the testWrite file could not be loaded");
         }
 
-
+        assert(fileContentAfterWrite != null);
+        assert(comparisonData.equals(fileContentAfterWrite));
     }
 
     @Test
@@ -101,7 +95,7 @@ class FileHandlerImplTest {
 
         File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
         List<String> saveData = new ArrayList<>();
-        List<String> comparisonData;
+        List<String> comparisonData = null;
         Random random = new Random();
 
         //Generate checksum to validate difference between new and old file
@@ -113,15 +107,14 @@ class FileHandlerImplTest {
         try {
             fileHandler.saveFileOverwrite(saveData, overwriteTestFile);
         } catch(IOException | IllegalArgumentException e) {
-            //TODO proper exception handling.
-            System.out.println("Error");
+            fail("File could not be saved");
         }
 
 
         try {
             comparisonData = fileHandler.loadFile(overwriteTestFile);
         } catch (IOException | IllegalArgumentException e) {
-            comparisonData = null;
+            fail("comparisonData could not be loaded");
         }
 
         assert(comparisonData != null);
@@ -131,13 +124,13 @@ class FileHandlerImplTest {
     @Test
     void getImageReturnsImageMovies() {
 
-        Image poster;
+        Image poster = null;
 
         try {
             poster = fileHandler.getImage("12 Angry Men", "film");
         } catch (IllegalArgumentException | IOException e) {
             //Uncorrectable Error. No Image will be displayed.
-            poster = null;
+            fail("12 Angry Men Poster could not be loaded");
         }
 
         assert(poster != null);
@@ -154,6 +147,7 @@ class FileHandlerImplTest {
         } catch (IllegalArgumentException | IOException e) {
             //Uncorrectable Error. No Image will be instantiated.
             poster = null;
+            fail("24 Poster could not be loaded");
         }
 
         assert(poster != null);
@@ -163,20 +157,17 @@ class FileHandlerImplTest {
     @Test
     void getImageNotPlaceholderMovies() {
 
-        BufferedImage placeholder;
-        BufferedImage poster;
+        BufferedImage placeholder = null;
+        BufferedImage poster = null;
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("12 Angry Men", "film");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
-            placeholder = null;
-            poster = null;
+            fail("Poster or placeholder could not be loaded");
         }
 
-        assert(poster != null);
-        assert(placeholder != null);
         assert(!imageEquality(poster, placeholder));
 
     }
@@ -184,20 +175,17 @@ class FileHandlerImplTest {
     @Test
     void getImageNotPlaceholderSeries() {
 
-        BufferedImage placeholder;
-        BufferedImage poster;
+        BufferedImage placeholder = null;
+        BufferedImage poster = null;
 
         try {
             placeholder = ImageIO.read(seriesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("24", "serie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
-            placeholder = null;
-            poster = null;
+            fail("Poster or placeholder was not loaded");
         }
 
-        assert(poster != null);
-        assert(placeholder != null);
         assert(!imageEquality(poster, placeholder));
 
     }
@@ -205,39 +193,36 @@ class FileHandlerImplTest {
     @Test
     void getImagePlaceholderFallbackMovies() {
 
-        BufferedImage placeholder;
-        BufferedImage poster;
+        BufferedImage placeholder = null;
+        BufferedImage poster = null;
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "film");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
-            placeholder = null;
-            poster = null;
+            fail("Placeholder or poster could not be loaded");
         }
-        assert(poster != null);
-        assert(placeholder != null);
+
         assert(imageEquality(poster, placeholder));
     }
 
     @Test
     void getImagePlaceholderFallbackSeries() {
 
-        BufferedImage placeholder;
-        BufferedImage poster;
+        BufferedImage placeholder = null;
+        BufferedImage poster = null;
 
         try {
             placeholder = ImageIO.read(moviesImagePlaceholder);
             poster = (BufferedImage) fileHandler.getImage("INVALID_FILE_NAME", "serie");
         } catch(IllegalArgumentException | IOException e) {
             //Uncorrectable error. Placeholder Image is missing.
-            placeholder = null;
-            poster = null;
+            fail("Poster or placeholder could not be loaded");
         }
-        assert(poster != null);
-        assert(placeholder != null);
+
         assert(imageEquality(poster, placeholder));
+
     }
 
     private boolean imageEquality(BufferedImage first, BufferedImage second) {

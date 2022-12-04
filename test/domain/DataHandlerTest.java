@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DataHandlerTest {
 
@@ -37,85 +37,73 @@ class DataHandlerTest {
     @Test
     void assembleMediaList() {
 
-        List<Media> mediaList;
+        List<Media> mediaList = null;
 
         try {
             mediaList = dataHandler.assembleMediaList();
         } catch(IOException | IllegalArgumentException e) {
-            mediaList = null;
+            fail("MediaList could not be assembled");
         }
 
-        if (mediaList == null) {
-            assert(false);
-        } else {
-            assert(mediaList.size() == 200);
-        }
+        assert(mediaList.size() == 200);
+
     }
 
     //Done
     @Test
     void assembleMovieList() {
 
-        List<Media> movieList;
+        List<Media> movieList = null;
 
         try {
             movieList = dataHandler.assembleMovieList();
         } catch(IOException | IllegalArgumentException e) {
-            movieList = null;
+            fail("movieList could not be assembled");
         }
 
         for(Media media : movieList) {
             System.out.println(media.toString());
         }
-        if (movieList == null) {
-            assert(false);
-        } else {
-            assert(movieList.size() == 100);
-        }
+
+        assert(movieList.size() == 100);
+
     }
 
     //Done
     @Test
     void assembleSeriesList() {
 
-        List<Media> seriesList;
+        List<Media> seriesList = null;
 
         try {
             seriesList = dataHandler.assembleSeriesList();
         } catch(IOException | IllegalArgumentException e) {
-            seriesList = null;
+            fail("seriesList could not be assembled");
         }
 
         for(Media media : seriesList) {
             System.out.println(media.toString());
         }
 
-        if (seriesList == null) {
-            assert(false);
-        } else {
-            assert(seriesList.size() == 100);
-        }
+        assert(seriesList.size() == 100);
+
     }
 
     @Test
     void assembleProfileMap() {
 
-        Map<Integer, Profile> profileMap;
-        int profilesAmount;
+        Map<Integer, Profile> profileMap = null;
+        int profilesAmount = -1;
 
         try {
             profilesAmount = fileHandler.loadFile(new File("lib/profiles/profileIds.txt")).size();
             profileMap = dataHandler.assembleProfileMap();
         } catch (IOException e) {
-            profileMap = null;
-            profilesAmount = 0;
+            fail("ProfileMap could not be assembled, or profilesAmount could not be determined");
         }
 
-        if (profileMap == null) {
-            assert(false);
-        } else {
-            assert(profileMap.keySet().size() == profilesAmount );
-        }
+        assert(profileMap.keySet().size() == profilesAmount );
+
     }
 
     @Test
@@ -124,7 +112,7 @@ class DataHandlerTest {
         int testId = 1026245;
         String profileName = stringGenerator(10);
         List<String> testFavorites = new ArrayList<>();
-        List<String> loadedProfileData;
+        List<String> loadedProfileData = null;
 
         for (int i = 0; i < 50; i++) {
             testFavorites.add(stringGenerator(15));
@@ -136,20 +124,16 @@ class DataHandlerTest {
             dataHandler.saveProfile(testProfile);
             loadedProfileData = fileHandler.loadFile(new File("lib/profiles/1026245.txt"));
         } catch (IOException e) {
-            loadedProfileData = null;
+            fail("Test profile could not be loaded");
         }
 
-        if(loadedProfileData == null) {
-            assert(false);
-        } else {
-            for (int i = 0; i < loadedProfileData.size(); i++) {
-                if(i == 0) {
-                    assertEquals(Integer.parseInt(loadedProfileData.get(i)), testId);
-                } else if (i == 1) {
-                    assertEquals(loadedProfileData.get(i), profileName);
-                } else {
-                    assertEquals(loadedProfileData.get(i), testFavorites.get(i - 2));
-                }
+        for (int i = 0; i < loadedProfileData.size(); i++) {
+            if(i == 0) {
+                assertEquals(Integer.parseInt(loadedProfileData.get(i)), testId);
+            } else if (i == 1) {
+                assertEquals(loadedProfileData.get(i), profileName);
+            } else {
+                assertEquals(loadedProfileData.get(i), testFavorites.get(i - 2));
             }
         }
     }
@@ -157,11 +141,46 @@ class DataHandlerTest {
     //TODO Write proper test
     @Test
     void saveProfileMap() {
-    }
 
+        Map<Integer, Profile> profileMap = null;
+        Map<Integer, Profile> comparatorProfileMap = null;
+        Profile addedProfile;
+        Profile comparatorProfile;
+        int addedProfileID = (int) (100000*Math.random());
+        String addedProfileName = stringGenerator(10);
+        List<String> addedProfilefavourites = new ArrayList<>();
+
+        try {
+            profileMap = dataHandler.assembleProfileMap();
+        } catch(IOException e) {
+            fail("profileMap could not be assembled");
+        }
+
+        for (int i = 0; i < 10; i++) {
+            addedProfilefavourites.add(stringGenerator(15));
+        }
+
+        addedProfile = new Profile(addedProfileID, addedProfileName, addedProfilefavourites);
+
+        profileMap.merge(addedProfile.getId(), addedProfile, (a,b) -> a = b);
+
+        try {
+            dataHandler.saveProfileMap(profileMap);
+            dataHandler.saveProfile(addedProfile);
+            comparatorProfileMap = dataHandler.assembleProfileMap();
+        } catch (IOException e) {
+            //TODO proper exception handling
+            fail("Map could not be saved or profileMap could not be assembled");
+        }
+
+        for(int profileId : comparatorProfileMap.keySet()) {
+            assert(profileMap.containsKey(profileId));
+        }
+    }
     //TODO decide on whether or not to keep this method, when we overwrite the profile file when saving.
     @Test
     void saveFavoritesToProfile() {
+
     }
 
     private String stringGenerator(int size) {

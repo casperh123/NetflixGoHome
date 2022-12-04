@@ -14,6 +14,7 @@ public class Profile {
         this.favorites = favorites;
     }
 
+    //TODO implement saving functionality, so favourites are saved to disc.
     // Add mediaName to favoriteList if not already added
     void addToFavorite(String mediaName) {
 
@@ -25,6 +26,7 @@ public class Profile {
         }
     }
 
+    //TODO implement saving functionality, so favourites are saved to disc.
     // If favoriteList contains mediaName, it removes it.
     void removeFromFavorite(String mediaName) {
 

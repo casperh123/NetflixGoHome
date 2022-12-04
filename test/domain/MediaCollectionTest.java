@@ -6,18 +6,24 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class MediaCollectionTest {
 
+    MediaCollection testCollection = null;
+
     @BeforeEach
     void setUp() {
-
+        try {
+            testCollection = new MediaCollection();
+        } catch (IOException e) {
+            fail("testCollection could not be instantiated");
+        }
     }
 
     @AfterEach
     void tearDown() {
-
+        testCollection = null;
     }
 
     @Test
@@ -40,14 +46,13 @@ class MediaCollectionTest {
     void sortByAlphabetical() {
         try {
             MediaCollection baseCollection = new MediaCollection();
-            MediaCollection testCollection = new MediaCollection();
             System.out.println(testCollection.getMedia().get(0));
             testCollection.sortByAlphabetical();
             System.out.println(testCollection.getMedia().get(0));
             //TODO better assertion
             assert (testCollection.getMedia().get(0) != baseCollection.getMedia().get(0));
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            fail("baseCollection could not be instantiated");
         }
     }
 }
