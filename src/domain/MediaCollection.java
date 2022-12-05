@@ -70,7 +70,7 @@ public class MediaCollection {
             titleList.add(media.getTitle());
         }
         Collections.sort(titleList);
-         media = sortByName(titleList).media;
+        media = sortByName(titleList).media;
     }
 
 }

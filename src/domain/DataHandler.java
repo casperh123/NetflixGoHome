@@ -82,7 +82,9 @@ public class DataHandler {
                     favourites.add(profileData.get(i));
                 }
             }
-            profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
+            if(title != null && id != -1) {
+                profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
+            }
         }
         return profileMap;
     }
@@ -117,7 +119,6 @@ public class DataHandler {
         ArrayList<String> genres = new ArrayList<>(Arrays.asList(dataEntries[2].split(",")));
         double rating = Double.parseDouble(dataEntries[3]);
         Image poster;
-        int seasons;
 
             try {
                 poster = fileHandler.getImage(title, "film");
