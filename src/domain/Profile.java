@@ -21,11 +21,7 @@ public class Profile {
         this.dataHandler = new DataHandler();
     }
 
-    //TODO implement saving functionality, so favourites are saved to disc.
-    //TODO Add mediaName to favoriteList if not already added
-
     void addToFavorite(String mediaName) throws IOException, MediaAlreadyInArrayException {
-
         if (favorites.contains(mediaName)) {
             throw new MediaAlreadyInArrayException(mediaName);
         } else {
@@ -37,15 +33,21 @@ public class Profile {
     void removeFromFavorite(String mediaName) throws MediaNotInArrayException, IOException {
         if (favorites.contains(mediaName)) {
             favorites.remove(mediaName);
-            dataHandler.saveProfile(new Profile(id, name, favorites));
+            dataHandler.saveProfile(this);
         } else {
             throw new MediaNotInArrayException(mediaName);
         }
     }
 
-    //TODO Sanitize input
-    public void setName(String name) throws IllegalArgumentException {
-        this.name = name;
+    public void setName(String name) {
+
+        this.name = name.replaceAll("[^A-Za-z0-9]","");
+
+        try {
+            dataHandler.saveProfile(this);
+        } catch (IOException e) {
+            throw new SavingException();
+        }
     }
 
     public String getName() {
@@ -72,23 +74,15 @@ public class Profile {
         return profileInfo;
     }
 
-    public String getPath() {
-        //String path =
-        return null;
-    }
-
     @Override
     public String toString() {
 
         String outputString = "Id: " + id + " Name: " + name + " Favorites: ";
 
-        //TODO Do something about separator
         for(String favourite : favorites) {
             outputString += favourite + ", ";
         }
 
         return outputString;
     }
-
-
 }

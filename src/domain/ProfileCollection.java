@@ -1,7 +1,7 @@
 package domain;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileCollection {
@@ -19,7 +19,7 @@ public class ProfileCollection {
         }
     }
 
-    public void createProfile(int id, String name, ArrayList<String> favorites) throws IOException {
+    public void createProfile(int id, String name, List<String> favorites) throws IOException {
 
         Profile newProfile = new Profile(id, name, favorites);
 

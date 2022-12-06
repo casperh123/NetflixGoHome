@@ -130,7 +130,6 @@ class DataHandlerTest {
         }
     }
 
-    //TODO Write proper test
     @Test
     void saveProfileMap() {
 
@@ -161,7 +160,6 @@ class DataHandlerTest {
             dataHandler.saveProfile(addedProfile);
             comparatorProfileMap = dataHandler.assembleProfileMap();
         } catch (IOException e) {
-            //TODO proper exception handling
             fail("Map could not be saved or profileMap could not be assembled");
         }
 
@@ -169,11 +167,16 @@ class DataHandlerTest {
             assert(profileMap.containsKey(profileId));
         }
     }
-    //TODO decide on whether or not to keep this method, when we overwrite the profile file when saving.
-    @Test
+
+   /* @Test
     void saveFavoritesToProfile() {
 
-    }
+        List<String> saveData = new ArrayList<>;
+        List<String> comparisonData = null;
+
+        s
+
+    }*/
 
     private String stringGenerator(int size) {
 

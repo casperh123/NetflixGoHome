@@ -117,9 +117,6 @@ public class DataHandler {
     }
 
     private Media movieCreator(String data) {
-
-        //TODO refactor method to be more readable and clean...
-
         String[] dataEntries = inputSanitizer(data);
         String title = dataEntries[0];
         int releaseYear = Integer.parseInt(dataEntries[1]);
@@ -128,43 +125,33 @@ public class DataHandler {
         double rating = Double.parseDouble(dataEntries[3]);
         Image poster;
 
-            try {
-                poster = fileHandler.getImage(title, "film");
-            } catch (IllegalArgumentException | IOException e) {
-                //TODO Proper exception handling
-                poster = null;
-                System.out.println("Critical Error: " + e.getMessage());
-            }
-            return new Movie(title, releaseYear, genres, rating, poster);
-
-
+        try {
+            poster = fileHandler.getImage(title, "film");
+        } catch (IllegalArgumentException | IOException e) {
+            //TODO Check if works with GUI
+            poster = null;
+        }
+        return new Movie(title, releaseYear, genres, rating, poster);
     }
 
     private Media seriesCreator(String data) {
-
-        //TODO refactor method to be more readable and clean...
-
         String[] dataEntries = inputSanitizer(data);
         String title = dataEntries[0];
         String[] releasePeriod = dataEntries[1].split("-");
         int releaseYear = Integer.parseInt(releasePeriod[0]);
-        // Splits the genre entry into a new array, and saves this in an arrayList called genres
         ArrayList<String> genres = new ArrayList<>(Arrays.asList(dataEntries[2].split(",")));
         double rating = Double.parseDouble(dataEntries[3]);
-        Image poster;
         int seasons = dataEntries[4].split(",").length;
         Map<Integer, Integer> seasonsEpisodes = seasonEpisodeMapAssembler(dataEntries[4].split(","));
+        Image poster;
 
-        //TODO clean up map and seasons
-            try {
-                poster = fileHandler.getImage(title, "serie");
-            } catch(IllegalArgumentException | IOException e) {
-                //TODO Proper exception handling
-                poster = null;
-                System.out.println("Critical Error: " + e.getMessage());
-            }
-
-            return new Series(title, releaseYear, genres, rating, poster, seasons, seasonsEpisodes);
+        try {
+            poster = fileHandler.getImage(title, "serie");
+        } catch(IOException e) {
+            //TODO Check if works with GUI
+            poster = null;
+        }
+        return new Series(title, releaseYear, genres, rating, poster, seasons, seasonsEpisodes);
     }
 
     private String[] inputSanitizer(String input) {
@@ -172,7 +159,6 @@ public class DataHandler {
         String[] dataEntries = input.split(";");
         String[] sanitizedArray = new String[dataEntries.length];
 
-        //TODO write an implementation that doesn't is more extensible.
         for(int i = 0; i < dataEntries.length; i++) {
             if (i == 0) {
                 sanitizedArray[i] = dataEntries[i];

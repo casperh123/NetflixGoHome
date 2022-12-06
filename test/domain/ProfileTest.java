@@ -3,6 +3,7 @@ package domain;
 import data.FileHandler;
 import data.FileHandlerImpl;
 import exceptions.MediaAlreadyInArrayException;
+import exceptions.MediaNotInArrayException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,19 +13,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ProfileTest {
 
     private DataHandler dataHandler;
     private FileHandler fileHandler;
     private File testProfileFile;
+    private ProfileCollection profileCollection;
     private
 
     @BeforeEach
     void setUp() {
         dataHandler = new DataHandler();
         fileHandler = new FileHandlerImpl();
+        profileCollection = new ProfileCollection();
         testProfileFile = new File("lib/profiles/1026245.txt");
     }
 
@@ -89,33 +92,41 @@ public class ProfileTest {
         }
     }
 
-    //TODO Refactor test to accommodate persistence;
-    /*@Test
+    @Test
     void removeFromFavoriteList() {
-        String mediaName = "Spider-Man";
-        List<String> list = new ArrayList<>();
-        Profile profile = new Profile(1, "bob", list);
+
+        Profile testProfile = profileCollection.getProfile(10123761);
+        List<String> loadedData;
 
         try{
-            profile.addToFavorite(mediaName);
+            testProfile.addToFavorite("Spider-Man");
+            loadedData = fileHandler.loadFile(new File("lib/profiles/10123761.txt"));
+            assert(testProfile.getFavorites().contains("Spider-Man"));
+            assert(loadedData.contains("Spider-Man"));
         } catch (IOException e) {
             fail("Could not save to favorite");
         } catch (MediaAlreadyInArrayException e) {
             fail(e.getMessage());
         }
 
-        assertTrue(list.size() == 1 && list.contains(mediaName));
+        try {
+            testProfile.removeFromFavorite("Spider-Man");
+            loadedData = fileHandler.loadFile(new File("lib/profiles/10123761.txt"));
+            assert(!testProfile.getFavorites().contains("Spider-Man"));
+            assert(!loadedData.contains("Spider-Man"));
+        } catch (MediaNotInArrayException e) {
+            fail(e.getMessage());
+        } catch (IOException e) {
+            fail("Could not load profile file");
+        }
+    }
 
-        profile.removeFromFavorite(mediaName);
-        assertEquals(0, list.size());
-    }*/
-
-    @Test
+    /*@Test
     void setName() {
         Profile profile = new Profile(1, "Bob", new ArrayList<>());
         profile.setName("Jan");
         assertEquals("Jan", profile.getName());
-    }
+    }*/
 
     /*@Test
     void profileInfoFormatterTest() {
