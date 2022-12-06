@@ -20,6 +20,10 @@ public class StreamingApp {
         return profiles;
     }
 
+    public Profile getActiveProfile() {
+        return activeProfile;
+    }
+
     public void setActiveProfile(Profile activeProfile) {
         this.activeProfile = activeProfile;
     }
