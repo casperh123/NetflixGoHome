@@ -58,6 +58,14 @@ public class FileHandlerImpl implements FileHandler {
         }
     }
 
+    public boolean deleteFile(File file) {
+        if(file.delete()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public Image getImage(String title, String mediaType) throws IOException {
         if(mediaType.equals("film")) {
             try {
