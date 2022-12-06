@@ -6,14 +6,20 @@ import java.util.Map;
 
 public class ProfileCollection {
 
-    private DataHandler profileListManager;
+    private DataHandler dataHandler;
     private Map<Integer, Profile> profileMap;
 
-    public ProfileCollection(Map<Integer, Profile> profiles) {
-        this.profileMap = profiles;
+    public ProfileCollection() {
+        this.dataHandler = new DataHandler();
+        try {
+            this.profileMap = dataHandler.assembleProfileMap();
+        } catch (IOException e) {
+            profileMap = null;
+            System.out.println("Profiles could not be loaded");
+        }
     }
 
-    public void createProfile(int id, String name, ArrayList<String> favorites) {
+    public void createProfile(int id, String name, ArrayList<String> favorites) throws IOException {
 
         Profile newProfile = new Profile(id, name, favorites);
 
@@ -21,20 +27,19 @@ public class ProfileCollection {
         profileMap.merge(newProfile.getId(), newProfile, (a, b) -> a = b);
 
         //save the profile and newly modified profileMap to disc.
-        try {
-            profileListManager.saveProfile(newProfile);
-            profileListManager.saveProfileMap(profileMap);
-        } catch(IOException e) {
-            //TODO Proper exception handling
-            System.out.println("Fuck");
-        }
-    }
-    public void createProfile(String name) {
-        throw new UnsupportedOperationException();
+        dataHandler.saveProfile(newProfile);
+        dataHandler.saveProfileMap(profileMap);
     }
 
-    public void deleteProfile(int id) {
-        throw new UnsupportedOperationException();
+    public void deleteProfile(int id) throws IOException {
+
+        profileMap.remove(id);
+        dataHandler.saveProfileMap(profileMap);
+
+    }
+
+    public Profile getProfile(int id) {
+        return profileMap.get(id);
     }
 
 }

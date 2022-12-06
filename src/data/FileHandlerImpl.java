@@ -11,7 +11,7 @@ import java.util.List;
 public class FileHandlerImpl implements FileHandler {
 
     // reading file and returning as arrayList
-    public List<String> loadFile(File file) throws IllegalArgumentException, IOException {
+    public List<String> loadFile(File file) throws IOException {
 
         List<String> loadedData = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class FileHandlerImpl implements FileHandler {
         return loadedData;
     }
 
-    public void saveFile(@NotNull List<String> saveData, File file) throws IOException, NullPointerException {
+    public void saveFile(@NotNull List<String> saveData, File file) throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
 
             if(file.length() > 0) {
@@ -44,7 +44,7 @@ public class FileHandlerImpl implements FileHandler {
         }
     }
 
-    public void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IllegalArgumentException, IOException {
+    public void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IOException {
         try (PrintWriter writer = new PrintWriter(file)) {
 
             //Print savaData to file, except last element of Array. Last element is printed separately
@@ -58,7 +58,7 @@ public class FileHandlerImpl implements FileHandler {
         }
     }
 
-    public Image getImage(String title, String mediaType) throws IllegalArgumentException, IOException {
+    public Image getImage(String title, String mediaType) throws IOException {
         if(mediaType.equals("film")) {
             try {
                 return ImageIO.read(new File("lib/media/" + mediaType + "plakater/" + title + ".jpg"));
