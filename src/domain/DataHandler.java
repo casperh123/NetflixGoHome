@@ -82,7 +82,9 @@ public class DataHandler {
                     favourites.add(profileData.get(i));
                 }
             }
-            profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
+            if(title != null && id != -1) {
+                profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
+            }
         }
         return profileMap;
     }
@@ -106,6 +108,14 @@ public class DataHandler {
         fileHandler.saveFileOverwrite(saveData, profileIds);
     }
 
+    public void saveToProfileFavourites(String mediaTitle, int profileId) throws IOException {
+
+        File profilePath = new File("lib/profiles/" + profileId + ".txt");
+
+        fileHandler.saveFile(Arrays.asList(mediaTitle), profilePath);
+
+    }
+
     private Media movieCreator(String data) {
 
         //TODO refactor method to be more readable and clean...
@@ -117,7 +127,6 @@ public class DataHandler {
         ArrayList<String> genres = new ArrayList<>(Arrays.asList(dataEntries[2].split(",")));
         double rating = Double.parseDouble(dataEntries[3]);
         Image poster;
-        int seasons;
 
             try {
                 poster = fileHandler.getImage(title, "film");

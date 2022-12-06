@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface FileHandler {
 
-    List<String> loadFile(File file) throws IllegalArgumentException, IOException;
-    Image getImage (String title, String mediaType) throws IllegalArgumentException, IOException;
-    void saveFile(List<String> saveData, File file) throws IOException, NullPointerException;
-    void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IllegalArgumentException, IOException;
+    Image getImage (String title, String mediaType) throws IOException;
+    List<String> loadFile(File file) throws IOException;
+    void saveFile(List<String> saveData, File file) throws IOException;
+    void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IOException;
 }
