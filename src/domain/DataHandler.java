@@ -164,7 +164,6 @@ public class DataHandler {
                 System.out.println("Critical Error: " + e.getMessage());
             }
 
-            //TODO Constructor contains placeholder variables to make tests executable. Replace Seasons and episodes with proper values. Same goes for Image.
             return new Series(title, releaseYear, genres, rating, poster, seasons, seasonsEpisodes);
     }
 
@@ -186,7 +185,6 @@ public class DataHandler {
 
         return sanitizedArray;
     }
-    //TODO Find out why the first season gets cut off our final media
     private Map<Integer, Integer> seasonEpisodeMapAssembler(String[] input) {
 
         Map<Integer, Integer> seasonEpisodeMap = new HashMap<>();
