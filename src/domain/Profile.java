@@ -46,7 +46,8 @@ public class Profile {
         try {
             dataHandler.saveProfile(this);
         } catch (IOException e) {
-            throw new SavingException();
+            System.out.println("fuck");
+            //TODO proper exception FileNotSaved
         }
     }
 

@@ -121,49 +121,17 @@ public class ProfileTest {
         }
     }
 
-    /*@Test
+    @Test
     void setName() {
-        Profile profile = new Profile(1, "Bob", new ArrayList<>());
-        profile.setName("Jan");
-        assertEquals("Jan", profile.getName());
-    }*/
 
-    /*@Test
-    void profileInfoFormatterTest() {
-        Profile profile = new Profile(1, "Bob", new ArrayList<>());
-        profile.addToFavorite("Spider-Man");
-        profile.addToFavorite("Back to the future");
+        Profile testProfile = profileCollection.getProfile(10123761);
+        String randomName = stringGenerator(40);
 
-        profile.profileInfoFormatter();
+        testProfile.setName(randomName);
 
-        assertEquals(profile.profileInfoFormatter().get(0), String.valueOf(1));
-        assertEquals(profile.profileInfoFormatter().get(1), "Bob");
-        assertEquals(profile.profileInfoFormatter().get(2), "Spider-Man");
-        assertEquals(profile.profileInfoFormatter().get(3), "Back to the future");
-    }*/
+        testProfile = new ProfileCollection().getProfile(10123761);
 
-    //TODO Test with fixed separator
-   /* @Test
-    void testToString() {
-        Profile profile = new Profile(1, "Bob", new ArrayList<>());
-        profile.addToFavorite("Spider-Man");
-        profile.addToFavorite("Back to the future");
-
-        assertEquals(profile.toString(), "Id: 1 Name: Bob Favorites: Spider-Man, Back to the future, ");
-    }*/
-    @Test
-    void getPath() {
-    }
-    @Test
-    void getName() {
-    }
-
-    @Test
-    void getId() {
-    }
-
-    @Test
-    void getFavorites() {
+        assert(testProfile.getName().equals(randomName));
     }
 
     private String stringGenerator(int size) {

@@ -168,6 +168,7 @@ class DataHandlerTest {
         }
     }
 
+    //TODO Complete test
    /* @Test
     void saveFavoritesToProfile() {
 

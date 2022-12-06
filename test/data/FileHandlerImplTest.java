@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class FileHandlerImplTest {
@@ -246,10 +245,4 @@ class FileHandlerImplTest {
         return true;
     }
 
-    @Test
-    void deleteProfile() {
-        File file = new File("lib/profiles/profileExample.txt");
-        file.delete();
-        assertThrows(IOException.class, () -> fileHandler.loadFile(new File("lib/profiles/profileExample.txt")));
-    }
 }
