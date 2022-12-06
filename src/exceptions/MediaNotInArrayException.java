@@ -9,8 +9,6 @@ public class MediaNotInArrayException extends Exception {
     }
 
     public String getMessage() {
-        String output = super.getMessage();
-
         return mediaTitle + " is not contained in the list";
     }
 

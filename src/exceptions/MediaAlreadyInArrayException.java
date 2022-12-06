@@ -9,8 +9,6 @@ public class MediaAlreadyInArrayException extends Exception {
     }
 
     public String getMessage() {
-        String output = super.getMessage();
-
         return mediaTitle + " already contained in the list";
     }
 

@@ -1,5 +1,7 @@
 package data;
 
+import exceptions.FileNotLoadedException;
+import exceptions.FileNotSavedException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -11,7 +13,7 @@ import java.util.List;
 public class FileHandlerImpl implements FileHandler {
 
     // reading file and returning as arrayList
-    public List<String> loadFile(File file) throws IOException {
+    public List<String> loadFile(File file) throws FileNotLoadedException {
 
         List<String> loadedData = new ArrayList<>();
 
@@ -22,12 +24,14 @@ public class FileHandlerImpl implements FileHandler {
             while ((nextInput = reader.readLine()) != null) {
                 loadedData.add(nextInput);
             }
+        } catch (IOException e) {
+            throw new FileNotLoadedException(file.getName());
         }
 
         return loadedData;
     }
 
-    public void saveFile(@NotNull List<String> saveData, File file) throws IOException {
+    public void saveFile(@NotNull List<String> saveData, File file) throws FileNotSavedException {
         try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
 
             if(file.length() > 0) {
@@ -41,10 +45,12 @@ public class FileHandlerImpl implements FileHandler {
             //Prints the last element of saveData without /n
             writer.print(saveData.get(saveData.size() - 1));
 
+        } catch (IOException e) {
+            throw new FileNotSavedException();
         }
     }
 
-    public void saveFileOverwrite(@NotNull List<String> saveData, File file) throws IOException {
+    public void saveFileOverwrite(@NotNull List<String> saveData, File file) throws FileNotSavedException {
         try (PrintWriter writer = new PrintWriter(file)) {
 
             //Print savaData to file, except last element of Array. Last element is printed separately
@@ -55,6 +61,8 @@ public class FileHandlerImpl implements FileHandler {
             //Prints the last element of saveData without exiting with a /n
             writer.print(saveData.get(saveData.size() - 1));
 
+        } catch (IOException e) {
+            throw new FileNotSavedException();
         }
     }
 

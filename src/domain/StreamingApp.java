@@ -1,10 +1,16 @@
 package domain;
 
+import java.io.IOException;
+
 public class StreamingApp {
 
     private MediaCollection media;
     private ProfileCollection profiles;
     private Profile activeProfile;
+    public StreamingApp() throws IOException {
+        media = new MediaCollection();
+        profiles = new ProfileCollection();
+    }
 
     public MediaCollection getMedia() {
         return media;
