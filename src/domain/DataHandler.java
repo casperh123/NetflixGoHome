@@ -108,6 +108,14 @@ public class DataHandler {
         fileHandler.saveFileOverwrite(saveData, profileIds);
     }
 
+    public void saveToProfileFavourites(String mediaTitle, int profileId) throws IOException {
+
+        File profilePath = new File("lib/profiles/" + profileId + ".txt");
+
+        fileHandler.saveFile(Arrays.asList(mediaTitle), profilePath);
+
+    }
+
     private Media movieCreator(String data) {
 
         //TODO refactor method to be more readable and clean...

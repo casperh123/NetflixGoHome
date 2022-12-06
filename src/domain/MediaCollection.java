@@ -65,12 +65,18 @@ public class MediaCollection {
 
     //TODO Look at this beauty! Maybe also improve before final version
     public void sortByAlphabetical() throws IOException{
+<<<<<<< Updated upstream
         List<String> titleList = new ArrayList<>();
         for (Media media : media) {
             titleList.add(media.getTitle());
         }
         Collections.sort(titleList);
         media = sortByName(titleList).media;
+=======
+
+        media.sort(Comparator.comparing(Media::getTitle));
+
+>>>>>>> Stashed changes
     }
 
 }

@@ -1,5 +1,9 @@
 package domain;
 
+import exceptions.MediaAlreadyInArrayException;
+import exceptions.MediaNotInArrayException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,35 +12,38 @@ public class Profile {
     private List<String> favorites;
     private int id;
 
+    private DataHandler dataHandler;
+
     public Profile(int id, String name, List<String> favorites) {
         this.id = id;
         this.name = name;
         this.favorites = favorites;
+        this.dataHandler = new DataHandler();
     }
 
+<<<<<<< Updated upstream
     //TODO implement saving functionality, so favourites are saved to disc.
     //TODO Add mediaName to favoriteList if not already added
     void addToFavorite(String mediaName) {
+=======
+    void addToFavorite(String mediaName) throws IOException, MediaAlreadyInArrayException {
+>>>>>>> Stashed changes
 
         if (favorites.contains(mediaName)) {
-            //TODO Create exception
-            throw new UnsupportedOperationException();
+            throw new MediaAlreadyInArrayException(mediaName);
         } else {
             favorites.add(mediaName);
+            dataHandler.saveToProfileFavourites(mediaName, id);
         }
     }
 
-    //TODO implement saving functionality, so favourites are saved to disc.
-    // If favoriteList contains mediaName, it removes it.
-    void removeFromFavorite(String mediaName) {
-
+    void removeFromFavorite(String mediaName) throws MediaNotInArrayException, IOException {
         if (favorites.contains(mediaName)) {
             favorites.remove(mediaName);
+            dataHandler.saveProfile(new Profile(id, name, favorites));
         } else {
-            //TODO Create exception
-            throw new UnsupportedOperationException();
+            throw new MediaNotInArrayException(mediaName);
         }
-
     }
 
     //TODO Sanitize input

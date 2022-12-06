@@ -61,10 +61,6 @@ class DataHandlerTest {
             fail("movieList could not be assembled");
         }
 
-        for(Media media : movieList) {
-            System.out.println(media.toString());
-        }
-
         assert(movieList.size() == 100);
 
     }
@@ -79,10 +75,6 @@ class DataHandlerTest {
             seriesList = dataHandler.assembleSeriesList();
         } catch(IOException | IllegalArgumentException e) {
             fail("seriesList could not be assembled");
-        }
-
-        for(Media media : seriesList) {
-            System.out.println(media.toString());
         }
 
         assert(seriesList.size() == 100);
