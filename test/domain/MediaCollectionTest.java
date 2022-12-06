@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class MediaCollectionTest {
 
-    MediaCollection testCollection = null;
+    private MediaCollection testCollection;
 
     @BeforeEach
     void setUp() {
