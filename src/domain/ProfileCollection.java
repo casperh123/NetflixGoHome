@@ -1,7 +1,8 @@
 package domain;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ProfileCollection {
@@ -19,7 +20,7 @@ public class ProfileCollection {
         }
     }
 
-    public void createProfile(int id, String name, ArrayList<String> favorites) throws IOException {
+    public void createProfile(int id, String name, List<String> favorites) throws IOException {
 
         Profile newProfile = new Profile(id, name, favorites);
 
@@ -31,11 +32,16 @@ public class ProfileCollection {
         dataHandler.saveProfileMap(profileMap);
     }
 
-    public void deleteProfile(int id) throws IOException {
+    public boolean deleteProfile(int id) throws IOException {
 
-        profileMap.remove(id);
-        dataHandler.saveProfileMap(profileMap);
-
+        File profileFile = new File("lib/profiles/" + id + ".txt");
+        //TODO ?Que pasa Exeptioooon?
+        if(profileFile.delete()) {
+            profileMap.remove(id);
+            dataHandler.saveProfileMap(profileMap);
+            return true;
+        }
+        return false;
     }
 
     public Profile getProfile(int id) {

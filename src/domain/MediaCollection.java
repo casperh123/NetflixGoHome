@@ -41,7 +41,6 @@ public class MediaCollection {
         return new MediaCollection(genre, listOfMedia);
     }
     //TODO Check if handles everything
-    //TODO Debug doesn't display last season
     public MediaCollection getCollectionByName(List<String> chosenMedia) {
         List<Media> listOfMedia = new ArrayList<>();
         for (Media media : media) {
