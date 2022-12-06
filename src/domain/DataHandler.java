@@ -177,6 +177,7 @@ public class DataHandler {
 
         return sanitizedArray;
     }
+    //TODO Find out why the first season gets cut off our final media
     private Map<Integer, Integer> seasonEpisodeMapAssembler(String[] input) {
 
         Map<Integer, Integer> seasonEpisodeMap = new HashMap<>();

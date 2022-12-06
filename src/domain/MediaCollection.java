@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -16,38 +17,47 @@ public class MediaCollection {
         genre = null;
     }
 
-    public MediaCollection(String genre) throws IOException {
+    private MediaCollection(String genre, List<Media> media) {
         mediaListManager = new DataHandler();
-        media = mediaListManager.assembleMediaList();
+        this.media = media;
         this.genre = genre;
     }
-    public MediaCollection getCollectionByGenre(String genre) throws IOException{
-        MediaCollection sortedCollection = new MediaCollection(genre);
+
+    private MediaCollection(List<Media> media) {
+        mediaListManager = new DataHandler();
+        this.media = media;
+        this.genre = null;
+    }
+
+    public MediaCollection getCollectionByGenre(String genre){
+
+        List<Media> listOfMedia = new ArrayList<>();
         // For the object "media" of type Media in the list "media", where the list is a field for MediaCollection
         for (Media media : media) {
             if (media.getGenres().contains(genre)) {
-                sortedCollection.media.add(media);
+                listOfMedia.add(media);
             }
         }
-        return sortedCollection;
+        return new MediaCollection(genre, listOfMedia);
     }
     //TODO Check if handles everything
-    public MediaCollection getCollectionByName(List<String> chosenMedia) throws IOException{
-        MediaCollection sortedCollection = new MediaCollection();
+    //TODO Debug doesn't display last season
+    public MediaCollection getCollectionByName(List<String> chosenMedia) {
+        List<Media> listOfMedia = new ArrayList<>();
         for (Media media : media) {
             for (String title : chosenMedia) {
-                if (media.getTitle().equals(title)) {
-                    sortedCollection.media.add(media);
+                if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
+                    listOfMedia.add(media);
                 }
             }
         }
-        return sortedCollection;
+        return new MediaCollection(listOfMedia);
     }
     public void sortByRating() {
-        media.sort(Comparator.comparing(Media::getRating));
+        media.sort(Comparator.comparing(Media::getRating).reversed());
     }
     public void sortByReverseRating() {
-        media.sort(Comparator.comparing(Media::getRating).reversed());
+        media.sort(Comparator.comparing(Media::getRating));
     }
     public void sortByReleaseYear() {
         media.sort(Comparator.comparing(Media::getReleaseYear));

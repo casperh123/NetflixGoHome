@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -32,14 +34,27 @@ class MediaCollectionTest {
 
     @Test
     void sortByName() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("Family Ties");
+        System.out.println(testCollection.getCollectionByName(nameList).getMedia().get(0));
     }
 
     @Test
     void sortByRating() {
+        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
+        testCollection.sortByRating();
+        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
+        testCollection.sortByReverseRating();
+        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
     }
 
     @Test
     void sortByReleaseYear() {
+        System.out.println(testCollection.getMedia().get(0));
+        testCollection.sortByReleaseYear();
+        System.out.println(testCollection.getMedia().get(0));
+        testCollection.sortByReverseReleaseYear();
+        System.out.println(testCollection.getMedia().get(0));
     }
 
     @Test
@@ -48,6 +63,8 @@ class MediaCollectionTest {
             MediaCollection baseCollection = new MediaCollection();
             System.out.println(testCollection.getMedia().get(0));
             testCollection.sortByAlphabetical();
+            System.out.println(testCollection.getMedia().get(0));
+            testCollection.sortByReverseAlphabetical();
             System.out.println(testCollection.getMedia().get(0));
             //TODO better assertion
             assert (testCollection.getMedia().get(0) != baseCollection.getMedia().get(0));
