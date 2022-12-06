@@ -21,13 +21,10 @@ public class Profile {
         this.dataHandler = new DataHandler();
     }
 
-<<<<<<< Updated upstream
     //TODO implement saving functionality, so favourites are saved to disc.
     //TODO Add mediaName to favoriteList if not already added
-    void addToFavorite(String mediaName) {
-=======
+
     void addToFavorite(String mediaName) throws IOException, MediaAlreadyInArrayException {
->>>>>>> Stashed changes
 
         if (favorites.contains(mediaName)) {
             throw new MediaAlreadyInArrayException(mediaName);
