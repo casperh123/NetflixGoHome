@@ -132,23 +132,18 @@ class DataHandlerTest {
 
         Map<Integer, Profile> profileMap = null;
         Map<Integer, Profile> comparatorProfileMap = null;
-        Profile addedProfile;
-        Profile comparatorProfile;
-        int addedProfileID = (int) (100000*Math.random());
-        String addedProfileName = stringGenerator(10);
         List<String> addedProfilefavourites = new ArrayList<>();
+        Profile addedProfile= new Profile((int) (100000*Math.random()), stringGenerator(10), addedProfilefavourites);;
+
+        for (int i = 0; i < 10; i++) {
+            addedProfilefavourites.add(stringGenerator(15));
+        }
 
         try {
             profileMap = dataHandler.assembleProfileMap();
         } catch(IOException e) {
             fail("profileMap could not be assembled");
         }
-
-        for (int i = 0; i < 10; i++) {
-            addedProfilefavourites.add(stringGenerator(15));
-        }
-
-        addedProfile = new Profile(addedProfileID, addedProfileName, addedProfilefavourites);
 
         profileMap.merge(addedProfile.getId(), addedProfile, (a,b) -> a = b);
 
