@@ -104,6 +104,7 @@ class DataHandlerTest {
         int testId = 1026245;
         String profileName = stringGenerator(10);
         List<String> testFavorites = new ArrayList<>();
+        List<String> loadedFavorites = null;
         List<String> loadedProfileData = null;
 
         for (int i = 0; i < 50; i++) {
@@ -119,15 +120,11 @@ class DataHandlerTest {
             fail("Test profile could not be loaded");
         }
 
-        for (int i = 0; i < loadedProfileData.size(); i++) {
-            if(i == 0) {
-                assertEquals(Integer.parseInt(loadedProfileData.get(i)), testId);
-            } else if (i == 1) {
-                assertEquals(loadedProfileData.get(i), profileName);
-            } else {
-                assertEquals(loadedProfileData.get(i), testFavorites.get(i - 2));
-            }
-        }
+        loadedFavorites = loadedProfileData.subList(2, loadedProfileData.size());
+
+        assertEquals(Integer.parseInt(loadedProfileData.get(0)), testId);
+        assertEquals(loadedProfileData.get(1), profileName);
+        assert(loadedFavorites.equals(testFavorites));
     }
 
     @Test
