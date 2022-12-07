@@ -67,24 +67,12 @@ public class DataHandler {
 
             List<String> profileData = fileHandler.loadFile(new File("lib/profiles/" + profileId + ".txt"));
 
-            String title = null;
-            int id = -1;
-            List<String> favourites = new ArrayList<>();
+            int id = Integer.parseInt(profileData.get(0));
+            String title = profileData.get(1);
+            List<String> favourites = profileData.subList(2, profileData.size());
 
+            profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
 
-            for (int i = 0; i < profileData.size(); i++) {
-
-                if(i == 0) {
-                    id = Integer.parseInt(profileData.get(i));
-                } else if(i == 1) {
-                    title = profileData.get(i);
-                } else {
-                    favourites.add(profileData.get(i));
-                }
-            }
-            if(title != null && id != -1) {
-                profileMap.merge(id, new Profile(id, title, favourites), (a, b) -> a = b);
-            }
         }
         return profileMap;
     }
