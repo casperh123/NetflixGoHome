@@ -73,7 +73,6 @@ public class StreamAppJFrame {
         jButton1.setBackground(Color.LIGHT_GRAY);
         mediaPanel.add(jButton1);
         JButton jButton2 = new JButton(image);
-        jButton2.setBackground(Color.BLACK);
         mediaPanel.add(jButton2);
         JButton jButton3 = new JButton(image);
         mediaPanel.add(jButton3);
