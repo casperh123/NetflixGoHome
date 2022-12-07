@@ -1,5 +1,6 @@
 package data;
 
+import exceptions.FileNotLoadedException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class FileHandlerImplTest {
@@ -56,6 +58,16 @@ class FileHandlerImplTest {
 
         assert(movieList.size() == 100);
         assert(seriesList.size() == 100);
+    }
+
+    @Test
+    void loadFileNullPointerParameter() {
+        assertThrows(FileNotLoadedException.class, () -> fileHandler.loadFile(null));
+    }
+
+    @Test
+    void loadFileThrowsFileNotFoundExceptionInvalidFile() {
+        assertThrows(FileNotLoadedException.class, () -> fileHandler.loadFile(new File("FILE_THAT_DOES_NOT_EXIST")));
     }
 
     @Test

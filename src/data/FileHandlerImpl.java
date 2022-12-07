@@ -17,6 +17,10 @@ public class FileHandlerImpl implements FileHandler {
 
         List<String> loadedData = new ArrayList<>();
 
+        if(file == null) {
+            throw new FileNotLoadedException(null);
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
             String nextInput;
