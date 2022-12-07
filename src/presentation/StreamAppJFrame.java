@@ -14,7 +14,7 @@ public class StreamAppJFrame {
         frame = new JFrame();
         frame.setLayout(new BorderLayout(10, 10));
         frame.setTitle("Netflix Go Home");
-        frame.setSize(800, 500);
+        frame.setSize(1110, 650);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -49,6 +49,11 @@ public class StreamAppJFrame {
         JComboBox<String> mediasComboBox = new JComboBox<>(mediasArray);
         menuPanel.add(mediasComboBox);
 
+        // TODO Find right component for the job
+        String[] profileOptionsArray = {"Change profile", "Sign out", "Save"};
+        JComboBox<String> profileComboBox = new JComboBox<>(profileOptionsArray);
+        menuPanel.add(profileComboBox);
+
 
         // Panel for media
         JPanel mediaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
@@ -60,19 +65,23 @@ public class StreamAppJFrame {
         }*/
 
         // Adding JButtons for testing
-        ImageIcon image = new ImageIcon("lib/media/filmplakater/12 Angry Men.jpg");
+        ImageIcon image = new ImageIcon("lib/media/serieforsider/The Simpsons.jpg");
 
-        JButton jButton1 = new JButton("Media", image);
+
+        JButton jButton1 = new JButton(image);
+        jButton1.setSize(image.getIconWidth(), image.getIconHeight());
+        jButton1.setBackground(Color.LIGHT_GRAY);
         mediaPanel.add(jButton1);
-        JButton jButton2 = new JButton("Media", image);
+        JButton jButton2 = new JButton(image);
+        jButton2.setBackground(Color.BLACK);
         mediaPanel.add(jButton2);
-        JButton jButton3 = new JButton("Media", image);
+        JButton jButton3 = new JButton(image);
         mediaPanel.add(jButton3);
-        JButton jButton4 = new JButton("Media", image);
+        JButton jButton4 = new JButton(image);
         mediaPanel.add(jButton4);
-        JButton jButton5 = new JButton("Media", image);
+        JButton jButton5 = new JButton(image);
         mediaPanel.add(jButton5);
-        JButton jButton6 = new JButton("Media", image);
+        JButton jButton6 = new JButton(image);
         mediaPanel.add(jButton6);
 
         // Setting up panels in the frame and making visible
