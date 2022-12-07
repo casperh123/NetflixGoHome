@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -59,24 +60,21 @@ class FileHandlerImplTest {
     }
 
     @Test
+    
+
+    @Test
     void saveFile() {
 
         File writeTestFile = new File("test/testLib/WriteTest.txt");
-        List<String> saveData = new ArrayList<>();
-        List<String> comparisonData = null;
+        List<String> saveData = new ArrayList<>(Arrays.asList(fillArrayRandomNumberString(5)));
+        List<String> comparisonData = new ArrayList<>();
         List<String> fileContentAfterWrite = null;
-        Random random = new Random();
 
         try {
             comparisonData = fileHandler.loadFile(writeTestFile);
+            comparisonData.addAll(saveData);
         } catch (IOException | IllegalArgumentException e) {
             fail("comparisonData could not be loaded");
-        }
-        //Generate checksum to validate difference between new and old file
-        for(int i = 0; i < 5; i++) {
-            String randomNumber = Integer.toString(random.nextInt(100));
-            saveData.add(randomNumber);
-            comparisonData.add(randomNumber);
         }
 
         try {
@@ -94,15 +92,8 @@ class FileHandlerImplTest {
     void saveFileOverwrite() {
 
         File overwriteTestFile = new File("test/testLib/overWriteTest.txt");
-        List<String> saveData = new ArrayList<>();
+        List<String> saveData = new ArrayList<>(Arrays.asList(fillArrayRandomNumberString(200)));
         List<String> comparisonData = null;
-        Random random = new Random();
-
-        //Generate checksum to validate difference between new and old file
-        for(int i = 0; i < 200; i++) {
-            String randomNumber = Integer.toString(random.nextInt(100));
-            saveData.add(randomNumber);
-        }
 
         try {
             fileHandler.saveFileOverwrite(saveData, overwriteTestFile);
@@ -243,6 +234,18 @@ class FileHandlerImplTest {
         }
 
         return true;
+    }
+
+    private String[] fillArrayRandomNumberString(int numbers) {
+
+        String[] array = new String[numbers];
+
+        for(int i = 0; i < numbers; i++) {
+            Random random = new Random();
+            String randomNumberString = Integer.toString(random.nextInt(100));
+            array[i] = randomNumberString;
+        }
+        return array;
     }
 
 }
