@@ -49,13 +49,14 @@ class MediaCollectionTest {
 
     @Test
     void sortByNameWorksAsSearchMethods() {
-        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Dances With Wolves", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
-        MediaCollection returnedCollection = testCollection.getCollectionByName(mediaToFetch);
+        List<String> searchTerms = new ArrayList<>(Arrays.asList("Dances", "Green", "Dandy", "Rock"));
+        List<String> expectedReturn = new ArrayList<>(Arrays.asList("Dances With Wolves", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
+        MediaCollection returnedCollection = testCollection.getCollectionByName(searchTerms);
         List<String> returnedMedia = new ArrayList<>();
 
         returnedCollection.getMedia().forEach((media) -> returnedMedia.add(media.getTitle()));
 
-        for(String mediaName : mediaToFetch) {
+        for(String mediaName : expectedReturn) {
             assert(returnedMedia.contains(mediaName));
         }
     }

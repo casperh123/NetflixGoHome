@@ -1,7 +1,5 @@
 package domain;
 
-import exceptions.FileNotLoadedException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
