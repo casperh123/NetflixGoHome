@@ -98,6 +98,6 @@ public class StreamApp {
     }
 
     public static void main(String[] args) {
-        StreamAppJFrame streamingApp = new StreamAppJFrame();
+        StreamApp streamingApp = new StreamApp();
     }
 }

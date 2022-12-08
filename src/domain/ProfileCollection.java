@@ -12,17 +12,23 @@ public class ProfileCollection {
     private DataHandler dataHandler;
     private Map<Integer, Profile> profileMap;
     private Profile activeProfile;
+    //TODO Check CurrentID works as intended
+    private int currentID;
 
     //TODO Throw FileNotLoadedException?
     public ProfileCollection() throws FileNotLoadedException {
         this.dataHandler = new DataHandler();
         this.profileMap = dataHandler.assembleProfileMap();
+        this.currentID = getMaxID() + 1;
     }
 
     //TODO FileNotSavedException?
-    public void createProfile(int id, String name, List<String> favorites) throws FileNotSavedException {
+    public void createProfile(String name, List<String> favorites) throws FileNotSavedException {
 
-        Profile newProfile = new Profile(id, name, favorites);
+        Profile newProfile = new Profile(this.currentID ,name, favorites);
+
+        //Iterate CurrentID
+        currentID++;
 
         //push new profile to the Map.
         profileMap.merge(newProfile.getId(), newProfile, (a, b) -> a = b);
@@ -54,6 +60,16 @@ public class ProfileCollection {
 
     public Profile getProfile(int id) {
         return profileMap.get(id);
+    }
+
+    private int getMaxID() {
+        int highestID = Integer.MIN_VALUE;
+        for (int ID : profileMap.keySet()) {
+            if (ID >= highestID) {
+                highestID = ID;
+            }
+        }
+        return highestID;
     }
 
 }
