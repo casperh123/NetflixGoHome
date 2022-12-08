@@ -66,19 +66,19 @@ public class MediaCollection {
     public void sortByRating() {
         media.sort(Comparator.comparing(Media::getRating).reversed());
     }
-    public void sortByReverseRating() {
+    public void sortByRatingReverse() {
         media.sort(Comparator.comparing(Media::getRating));
     }
     public void sortByReleaseYear() {
         media.sort(Comparator.comparing(Media::getReleaseYear));
     }
-    public void sortByReverseReleaseYear() {
+    public void sortByReleaseYearReverse() {
         media.sort(Comparator.comparing(Media::getReleaseYear).reversed());
     }
     public void sortByAlphabetical() throws IOException{
         media.sort(Comparator.comparing(Media::getTitle));
     }
-    public void sortByReverseAlphabetical() throws IOException{
+    public void sortByAlphabeticalReverse() throws IOException{
         media.sort(Comparator.comparing(Media::getTitle).reversed());
     }
     public List<Media> getMedia() {

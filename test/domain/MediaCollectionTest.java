@@ -79,7 +79,7 @@ class MediaCollectionTest {
     void sortByReverseRating() {
         List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Game of Thrones", "Crisis in six scenes", "Batman", "Terms of endearment"));
         MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
-        collectionToSort.sortByReverseRating();
+        collectionToSort.sortByRatingReverse();
         assertEquals (collectionToSort.getMedia().get(3).getTitle(), "Game Of Thrones");
         assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Batman");
         assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Terms of Endearment");
@@ -105,11 +105,11 @@ class MediaCollectionTest {
     void sortByReleaseYearReversed() {
 
         List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Dances With Wolves","Yankee Doodle Dandy", "Rocky"));
-        List<String> expectedList = new ArrayList<>(Arrays.asList("Yankee Doodle Dandy", "Rocky", "Dances With Wolves", "The Green Mile"));
+        List<String> expectedList = new ArrayList<>(Arrays.asList("The Green Mile", "Dances With Wolves", "Rocky", "Yankee Doodle Dandy"));
         List<String> comparisonList = new ArrayList<>();
         MediaCollection chosenMedia = testCollection.getCollectionByName(mediaToFetch);
 
-        chosenMedia.sortByReverseReleaseYear();
+        chosenMedia.sortByReleaseYearReverse();
 
         chosenMedia.getMedia().forEach((media) -> comparisonList.add(media.getTitle()));
 
@@ -136,7 +136,7 @@ class MediaCollectionTest {
         try {
             List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Crisis in six scenes", "Batman", "Terms of endearment"));
             MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
-            collectionToSort.sortByReverseAlphabetical();
+            collectionToSort.sortByAlphabeticalReverse();
             assertEquals (collectionToSort.getMedia().get(3).getTitle(), "Batman");
             assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Crisis In Six Scenes");
             assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Terms of Endearment");
