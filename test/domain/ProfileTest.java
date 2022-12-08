@@ -2,6 +2,8 @@ package domain;
 
 import data.FileHandler;
 import data.FileHandlerImpl;
+import exceptions.FileNotLoadedException;
+import exceptions.FileNotSavedException;
 import exceptions.MediaAlreadyInArrayException;
 import exceptions.MediaNotInArrayException;
 import org.junit.jupiter.api.AfterEach;
@@ -9,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,12 @@ public class ProfileTest {
     void setUp() {
         dataHandler = new DataHandler();
         fileHandler = new FileHandlerImpl();
-        profileCollection = new ProfileCollection();
         testProfileFile = new File("lib/profiles/1026245.txt");
+        try {
+            profileCollection = new ProfileCollection();
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
+        }
     }
 
     @AfterEach
@@ -38,86 +43,32 @@ public class ProfileTest {
     }
 
     @Test
-    void addToFavoriteList() {
-
-        List<String> loadedProfile = null;
-        List<String> favorites = new ArrayList<>();
-        List<String> loadedFavorites = new ArrayList<>();
-        Profile profile;
-
-        try {
-            loadedProfile = fileHandler.loadFile(testProfileFile);
-        } catch (IOException e) {
-            fail("testProfile could not be loaded");
-        }
-
-        for (int i = 0; i < loadedProfile.size(); i++) {
-            if(i > 1) {
-                favorites.add(loadedProfile.get(i));
-            }
-        }
-
-        profile = new Profile(1026245, "GENERIC", favorites);
-
-        favorites = new ArrayList<>(favorites);
-
-        for (int i = 0; i < 5; i++) {
-
-            String randomMedia = stringGenerator(25);
-
-            favorites.add(randomMedia);
-
-            try {
-                profile.addToFavorite(randomMedia);
-            } catch (MediaAlreadyInArrayException | IOException e) {
-                System.out.println(e.getMessage());
-                fail("Could not save to favorite");
-            }
-        }
-
-        try {
-            loadedProfile = fileHandler.loadFile(testProfileFile);
-        } catch (IOException e) {
-            fail("Could not load profile for the second time");
-        }
-
-        for (int i = 0; i < loadedProfile.size(); i++) {
-            if(i > 1) {
-                loadedFavorites.add(loadedProfile.get(i));
-            }
-        }
-
-        for(String favorite : favorites) {
-            assert(loadedFavorites.contains(favorite));
-        }
-    }
-
-    @Test
     void removeFromFavoriteList() {
 
         Profile testProfile = profileCollection.getProfile(10123761);
-        List<String> loadedData;
 
         try{
             testProfile.addToFavorite("Spider-Man");
-            loadedData = fileHandler.loadFile(new File("lib/profiles/10123761.txt"));
+            testProfile = new ProfileCollection().getProfile(10123761);
             assert(testProfile.getFavorites().contains("Spider-Man"));
-            assert(loadedData.contains("Spider-Man"));
-        } catch (IOException e) {
-            fail("Could not save to favorite");
+        } catch (FileNotSavedException e) {
+            fail(e.getMessage());
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
         } catch (MediaAlreadyInArrayException e) {
             fail(e.getMessage());
         }
 
         try {
             testProfile.removeFromFavorite("Spider-Man");
-            loadedData = fileHandler.loadFile(new File("lib/profiles/10123761.txt"));
+            testProfile = new ProfileCollection().getProfile(10123761);
             assert(!testProfile.getFavorites().contains("Spider-Man"));
-            assert(!loadedData.contains("Spider-Man"));
         } catch (MediaNotInArrayException e) {
             fail(e.getMessage());
-        } catch (IOException e) {
-            fail("Could not load profile file");
+        } catch (FileNotSavedException e) {
+            fail(e.getMessage());
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
         }
     }
 
@@ -129,9 +80,46 @@ public class ProfileTest {
 
         testProfile.setName(randomName);
 
-        testProfile = new ProfileCollection().getProfile(10123761);
-
+        try {
+            testProfile = new ProfileCollection().getProfile(10123761);
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
+        }
         assert(testProfile.getName().equals(randomName));
+    }
+
+    @Test
+    void addToFavoriteList() {
+
+        Profile profile = profileCollection.getProfile(10123761);
+        List<String> currentFavorites = new ArrayList<>(profile.getFavorites());
+        List<String> loadedFavorites = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+
+            String randomMedia = stringGenerator(25);
+
+            currentFavorites.add(randomMedia);
+
+            try {
+                profile.addToFavorite(randomMedia);
+            } catch (MediaAlreadyInArrayException e) {
+                fail(e.getMessage());
+            } catch (FileNotSavedException e) {
+                fail(e.getMessage());
+            }
+        }
+
+        try {
+            profile = new ProfileCollection().getProfile(10123761);
+            loadedFavorites = profile.getFavorites();
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
+        }
+
+        for(String favorite : currentFavorites) {
+            assert(loadedFavorites.contains(favorite));
+        }
     }
 
     private String stringGenerator(int size) {

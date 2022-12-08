@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -33,10 +34,30 @@ class MediaCollectionTest {
     }
 
     @Test
-    void sortByName() {
-        List<String> nameList = new ArrayList<>();
-        nameList.add("Family Ties");
-        System.out.println(testCollection.getCollectionByName(nameList).getMedia().get(0));
+    void getCollectionByNameReturnsCorrectMedia() {
+
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Dances With Wolves", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
+        MediaCollection returnedCollection = testCollection.getCollectionByName(mediaToFetch);
+        List<String> returnedMedia = new ArrayList<>();
+
+        returnedCollection.getMedia().forEach((media) -> returnedMedia.add(media.getTitle()));
+
+        for(String mediaName : mediaToFetch) {
+            assert(returnedMedia.contains(mediaName));
+        }
+    }
+
+    @Test
+    void sortByNameWorksAsSearchMethods() {
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Dances With Wolves", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
+        MediaCollection returnedCollection = testCollection.getCollectionByName(mediaToFetch);
+        List<String> returnedMedia = new ArrayList<>();
+
+        returnedCollection.getMedia().forEach((media) -> returnedMedia.add(media.getTitle()));
+
+        for(String mediaName : mediaToFetch) {
+            assert(returnedMedia.contains(mediaName));
+        }
     }
 
     @Test

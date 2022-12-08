@@ -39,6 +39,7 @@ public class MediaCollection {
     //TODO Check if handles everything
     public MediaCollection getCollectionByName(List<String> chosenMedia) {
         List<Media> listOfMedia = new ArrayList<>();
+
         for (Media media : media) {
             for (String title : chosenMedia) {
                 if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {

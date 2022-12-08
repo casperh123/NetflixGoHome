@@ -1,8 +1,11 @@
 package domain;
 
+import exceptions.FileNotLoadedException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 class ProfileCollectionTest {
 
@@ -10,7 +13,11 @@ class ProfileCollectionTest {
 
     @BeforeEach
     void setUp() {
-        profileCollection = new ProfileCollection();
+        try {
+            profileCollection = new ProfileCollection();
+        } catch (FileNotLoadedException e) {
+            fail(e.getMessage());
+        }
     }
 
     @AfterEach
