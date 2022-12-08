@@ -1,5 +1,6 @@
 package domain;
 
+import exceptions.FileNotSavedException;
 import exceptions.MediaAlreadyInArrayException;
 import exceptions.MediaNotInArrayException;
 
@@ -21,7 +22,7 @@ public class Profile {
         this.dataHandler = new DataHandler();
     }
 
-    void addToFavorite(String mediaName) throws IOException, MediaAlreadyInArrayException {
+    void addToFavorite(String mediaName) throws MediaAlreadyInArrayException, FileNotSavedException {
         if (favorites.contains(mediaName)) {
             throw new MediaAlreadyInArrayException(mediaName);
         } else {
@@ -30,7 +31,7 @@ public class Profile {
         }
     }
 
-    void removeFromFavorite(String mediaName) throws MediaNotInArrayException, IOException {
+    void removeFromFavorite(String mediaName) throws MediaNotInArrayException, FileNotSavedException {
         if (favorites.contains(mediaName)) {
             favorites.remove(mediaName);
             dataHandler.saveProfile(this);

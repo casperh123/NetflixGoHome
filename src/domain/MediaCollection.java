@@ -7,24 +7,20 @@ import java.util.List;
 
 public class MediaCollection {
 
-    private DataHandler mediaListManager;
     private List<Media> media;
     private String genre;
 
     public MediaCollection() throws IOException {
-        mediaListManager = new DataHandler();
-        media = mediaListManager.assembleMediaList();
+        media = new DataHandler().assembleMediaList();
         genre = null;
     }
 
     private MediaCollection(String genre, List<Media> media) {
-        mediaListManager = new DataHandler();
         this.media = media;
         this.genre = genre;
     }
 
     private MediaCollection(List<Media> media) {
-        mediaListManager = new DataHandler();
         this.media = media;
         this.genre = null;
     }
@@ -64,23 +60,17 @@ public class MediaCollection {
     public void sortByReverseReleaseYear() {
         media.sort(Comparator.comparing(Media::getReleaseYear).reversed());
     }
-    public DataHandler getMediaListManager() {
-        return mediaListManager;
+    public void sortByAlphabetical() throws IOException{
+        media.sort(Comparator.comparing(Media::getTitle));
+    }
+    public void sortByReverseAlphabetical() throws IOException{
+        media.sort(Comparator.comparing(Media::getTitle).reversed());
     }
     public List<Media> getMedia() {
         return media;
     }
-
     public String getGenre() {
         return genre;
-    }
-
-    public void sortByAlphabetical() throws IOException{
-        media.sort(Comparator.comparing(Media::getTitle));
-    }
-
-    public void sortByReverseAlphabetical() throws IOException{
-        media.sort(Comparator.comparing(Media::getTitle).reversed());
     }
 
 }

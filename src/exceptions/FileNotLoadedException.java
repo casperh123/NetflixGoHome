@@ -1,13 +1,17 @@
 package exceptions;
 
+import java.io.File;
 import java.io.IOException;
 
 public class FileNotLoadedException extends IOException{
 
     private String fileName;
 
-    public FileNotLoadedException(String fileName) {
+    public FileNotLoadedException(File file) {
         this.fileName = fileName;
+    }
+    public FileNotLoadedException(String message) {
+        super(message);
     }
 
     public String getMessage() {

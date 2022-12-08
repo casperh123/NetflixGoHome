@@ -1,11 +1,22 @@
 package exceptions;
 
+import java.io.File;
 import java.io.IOException;
 
 public class FileNotSavedException extends IOException {
 
-    public FileNotSavedException() {
-        super("Could not save to file");
+    private File file;
+
+    public FileNotSavedException(File file) {
+        this.file = file;
+    }
+
+    public FileNotSavedException(String message) {
+        super(message);
+    }
+
+    public String getMessage() {
+        return file.getName() + " could not be loaded";
     }
 
 }

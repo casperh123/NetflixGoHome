@@ -38,10 +38,6 @@ abstract class Media {
         return poster;
     }
 
-    public void display() {
-        throw new UnsupportedOperationException();
-    }
-
     @Override
     public String toString() {
 

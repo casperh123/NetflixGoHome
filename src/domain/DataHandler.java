@@ -2,6 +2,8 @@ package domain;
 
 import data.FileHandler;
 import data.FileHandlerImpl;
+import exceptions.FileNotLoadedException;
+import exceptions.FileNotSavedException;
 
 import java.awt.*;
 import java.io.File;
@@ -22,7 +24,7 @@ public class DataHandler {
         fileHandler = new FileHandlerImpl();
     }
 
-    public List<Media> assembleMediaList() throws IOException {
+    public List<Media> assembleMediaList() throws FileNotLoadedException {
 
         List<Media> mediaList = new ArrayList<>();
 
@@ -32,7 +34,7 @@ public class DataHandler {
         return mediaList;
     }
 
-    public List<Media> assembleMovieList() throws IOException {
+    public List<Media> assembleMovieList() throws FileNotLoadedException {
 
         List<String> moviesMetaData = fileHandler.loadFile(movieList);
         List<Media> mediaList = new ArrayList<>();
@@ -44,7 +46,7 @@ public class DataHandler {
         return mediaList;
     }
 
-    public List<Media> assembleSeriesList() throws IOException {
+    public List<Media> assembleSeriesList() throws FileNotLoadedException {
 
         List<String> seriesMetaData = fileHandler.loadFile(seriesList);
         List<Media> mediaList = new ArrayList<>();
@@ -56,7 +58,7 @@ public class DataHandler {
         return mediaList;
     }
 
-    public Map<Integer, Profile> assembleProfileMap() throws IOException {
+    public Map<Integer, Profile> assembleProfileMap() throws FileNotLoadedException {
 
         Map<Integer, Profile> profileMap = new HashMap<>();
         //Fetch saved ids from profileIds.txt
@@ -77,7 +79,7 @@ public class DataHandler {
         return profileMap;
     }
 
-    public void saveProfile(Profile profile) throws IOException {
+    public void saveProfile(Profile profile) throws FileNotSavedException {
 
         File profilePath = new File("lib/profiles/" + profile.getId() + ".txt");
         List<String> saveData = profile.profileInfoFormatter();
@@ -85,7 +87,7 @@ public class DataHandler {
         fileHandler.saveFileOverwrite(saveData, profilePath);
     }
 
-    public void saveProfileMap(Map<Integer, Profile> profileMap) throws IOException{
+    public void saveProfileMap(Map<Integer, Profile> profileMap) throws FileNotSavedException{
 
         List<String> saveData = new ArrayList<>();
 
@@ -96,7 +98,7 @@ public class DataHandler {
         fileHandler.saveFileOverwrite(saveData, profileIds);
     }
 
-    public void saveToProfileFavourites(String mediaTitle, int profileId) throws IOException {
+    public void saveToProfileFavourites(String mediaTitle, int profileId) throws FileNotSavedException {
 
         File profilePath = new File("lib/profiles/" + profileId + ".txt");
 

@@ -3,11 +3,11 @@ package presentation;
 import javax.swing.*;
 import java.awt.*;
 
-public class StreamAppJFrame {
+public class StreamApp {
 
     private JFrame frame;
 
-    public StreamAppJFrame() {
+    public StreamApp() {
         initialize();
     }
     private void initialize() {
