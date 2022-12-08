@@ -49,13 +49,15 @@ class MediaCollectionTest {
     }
 
     @Test
-    void sortByNameWorksAsSearchMethods() {
-        List<String> searchTerms = new ArrayList<>(Arrays.asList("Dances", "Green", "Dandy", "Rock"));
-        List<String> expectedReturn = new ArrayList<>(Arrays.asList("Dances With Wolves", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
+    void getCollectionByNameWorksAsSearchMethod() {
+        List<String> searchTerms = new ArrayList<>(Arrays.asList("man", "Green", "Dandy", "Rock"));
+        List<String> expectedReturn = new ArrayList<>(Arrays.asList("Batman", "The Green Mile", "Yankee Doodle Dandy", "Rocky"));
         MediaCollection returnedCollection = testCollection.getCollectionByName(searchTerms);
         List<String> returnedMedia = new ArrayList<>();
 
         returnedCollection.getMedia().forEach((media) -> returnedMedia.add(media.getTitle()));
+
+        returnedMedia.forEach(System.out::println);
 
         for(String mediaName : expectedReturn) {
             assert(returnedMedia.contains(mediaName));
@@ -86,11 +88,32 @@ class MediaCollectionTest {
 
     @Test
     void sortByReleaseYear() {
-        System.out.println(testCollection.getMedia().get(0));
-        testCollection.sortByReleaseYear();
-        System.out.println(testCollection.getMedia().get(0));
-        testCollection.sortByReverseReleaseYear();
-        System.out.println(testCollection.getMedia().get(0));
+
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Dances With Wolves","Yankee Doodle Dandy", "Rocky"));
+        List<String> expectedList = new ArrayList<>(Arrays.asList("Yankee Doodle Dandy", "Rocky", "Dances With Wolves", "The Green Mile"));
+        List<String> comparisonList = new ArrayList<>();
+        MediaCollection chosenMedia = testCollection.getCollectionByName(mediaToFetch);
+
+        chosenMedia.sortByReleaseYear();
+
+        chosenMedia.getMedia().forEach((media) -> comparisonList.add(media.getTitle()));
+
+        assertEquals(comparisonList, expectedList);
+    }
+
+    @Test
+    void sortByReleaseYearReversed() {
+
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Dances With Wolves","Yankee Doodle Dandy", "Rocky"));
+        List<String> expectedList = new ArrayList<>(Arrays.asList("Yankee Doodle Dandy", "Rocky", "Dances With Wolves", "The Green Mile"));
+        List<String> comparisonList = new ArrayList<>();
+        MediaCollection chosenMedia = testCollection.getCollectionByName(mediaToFetch);
+
+        chosenMedia.sortByReverseReleaseYear();
+
+        chosenMedia.getMedia().forEach((media) -> comparisonList.add(media.getTitle()));
+
+        assertEquals(comparisonList, expectedList);
     }
 
     @Test
