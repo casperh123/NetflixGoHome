@@ -1,5 +1,7 @@
 package domain;
 
+import exceptions.FileNotLoadedException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -44,6 +46,20 @@ public class MediaCollection {
                 if (media.getTitle().toLowerCase().contains(title.toLowerCase())) {
                     listOfMedia.add(media);
                 }
+            }
+        }
+        return new MediaCollection(listOfMedia);
+    }
+
+
+    public MediaCollection getCollectionByType(String mediaType) throws IOException {
+        List<Media> listOfMedia;
+        switch (mediaType) {
+            case "Movies" -> listOfMedia = this.getMediaListManager().assembleMovieList();
+            case "Series" -> listOfMedia = this.getMediaListManager().assembleSeriesList();
+            default -> {
+                listOfMedia = this.getMediaListManager().assembleMediaList();
+                throw new IllegalArgumentException();
             }
         }
         return new MediaCollection(listOfMedia);
