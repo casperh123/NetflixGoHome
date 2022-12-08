@@ -1,11 +1,18 @@
 package presentation;
 
+import domain.MediaCollection;
+import domain.ProfileCollection;
+
+import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
 
 public class StreamAppJFrame {
 
     private JFrame frame;
+    private ProfileCollection profileList;
+    private MediaCollection fullMediaList;
+    private MediaCollection currentMediaList;
 
     public StreamAppJFrame() {
         initialize();
@@ -88,5 +95,9 @@ public class StreamAppJFrame {
         frame.add(mediaPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        StreamAppJFrame streamingApp = new StreamAppJFrame();
     }
 }
