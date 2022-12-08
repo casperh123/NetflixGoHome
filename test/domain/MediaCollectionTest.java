@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class MediaCollectionTest {
@@ -62,11 +63,24 @@ class MediaCollectionTest {
 
     @Test
     void sortByRating() {
-        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
-        testCollection.sortByRating();
-        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
-        testCollection.sortByReverseRating();
-        System.out.println(testCollection.getMedia().get(0) + " rating: " + testCollection.getMedia().get(0).getRating());
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Game of Thrones", "Crisis in six scenes", "Batman", "Terms of endearment"));
+        MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
+        collectionToSort.sortByRating();
+        assertEquals (collectionToSort.getMedia().get(0).getTitle(), "Game Of Thrones");
+        assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Batman");
+        assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Terms of Endearment");
+        assertEquals (collectionToSort.getMedia().get(3).getTitle(), "Crisis In Six Scenes");
+    }
+
+    @Test
+    void sortByReverseRating() {
+        List<String> mediaToFetch = new ArrayList<>(Arrays.asList("Game of Thrones", "Crisis in six scenes", "Batman", "Terms of endearment"));
+        MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
+        collectionToSort.sortByReverseRating();
+        assertEquals (collectionToSort.getMedia().get(3).getTitle(), "Game Of Thrones");
+        assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Batman");
+        assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Terms of Endearment");
+        assertEquals (collectionToSort.getMedia().get(0).getTitle(), "Crisis In Six Scenes");
     }
 
     @Test
@@ -81,14 +95,28 @@ class MediaCollectionTest {
     @Test
     void sortByAlphabetical() {
         try {
-            MediaCollection baseCollection = new MediaCollection();
-            System.out.println(testCollection.getMedia().get(0));
-            testCollection.sortByAlphabetical();
-            System.out.println(testCollection.getMedia().get(0));
-            testCollection.sortByReverseAlphabetical();
-            System.out.println(testCollection.getMedia().get(0));
-            //TODO better assertion
-            assert (testCollection.getMedia().get(0) != baseCollection.getMedia().get(0));
+            List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Crisis in six scenes", "Batman", "Terms of endearment"));
+            MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
+            collectionToSort.sortByAlphabetical();
+            assertEquals (collectionToSort.getMedia().get(0).getTitle(), "Batman");
+            assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Crisis In Six Scenes");
+            assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Terms of Endearment");
+            assertEquals (collectionToSort.getMedia().get(3).getTitle(), "The Green Mile");
+        } catch (IOException e) {
+            fail("baseCollection could not be instantiated");
+        }
+    }
+
+    @Test
+    void sortByReverseAlphabetical() {
+        try {
+            List<String> mediaToFetch = new ArrayList<>(Arrays.asList("The Green Mile", "Crisis in six scenes", "Batman", "Terms of endearment"));
+            MediaCollection collectionToSort = testCollection.getCollectionByName(mediaToFetch);
+            collectionToSort.sortByReverseAlphabetical();
+            assertEquals (collectionToSort.getMedia().get(3).getTitle(), "Batman");
+            assertEquals (collectionToSort.getMedia().get(2).getTitle(), "Crisis In Six Scenes");
+            assertEquals (collectionToSort.getMedia().get(1).getTitle(), "Terms of Endearment");
+            assertEquals (collectionToSort.getMedia().get(0).getTitle(), "The Green Mile");
         } catch (IOException e) {
             fail("baseCollection could not be instantiated");
         }
