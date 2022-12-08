@@ -55,10 +55,10 @@ public class MediaCollection {
     public MediaCollection getCollectionByType(String mediaType) throws IOException {
         List<Media> listOfMedia;
         switch (mediaType) {
-            case "Movies" -> listOfMedia = this.getMediaListManager().assembleMovieList();
-            case "Series" -> listOfMedia = this.getMediaListManager().assembleSeriesList();
+            case "Movies" -> listOfMedia = new DataHandler().assembleMovieList();
+            case "Series" -> listOfMedia = new DataHandler().assembleSeriesList();
             default -> {
-                listOfMedia = this.getMediaListManager().assembleMediaList();
+                listOfMedia = new DataHandler().assembleMediaList();
                 throw new IllegalArgumentException();
             }
         }
