@@ -1,10 +1,15 @@
 package presentation;
 
 import domain.MediaCollection;
+import domain.MediaList;
 import domain.ProfileCollection;
+import domain.ProfileList;
+import exceptions.FileNotLoadedException;
 
+import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class StreamApp {
 
@@ -17,6 +22,15 @@ public class StreamApp {
         initialize();
     }
     private void initialize() {
+        //TODO Proper exception handling
+        try {
+            profileList = new ProfileList();
+            fullMediaList = new MediaList();
+            currentMediaList = ;
+        } catch (FileNotLoadedException e) {
+            System.out.println("Fuck");
+        }
+
         frame = new JFrame();
         frame.setLayout(new BorderLayout(10, 10));
         frame.setTitle("Netflix Go Home");
@@ -114,7 +128,20 @@ public class StreamApp {
         frame.add(mediaPanel, BorderLayout.CENTER);
 
         frame.setVisible(true);
+
     }
+
+    private List<String> generateMediaTitleList(List<Media> media) {
+
+        List<String> mediaNames = new ArrayList<>();
+
+        for() {
+
+        }
+
+        return mediaNames;
+    }
+
 
     public static void main(String[] args) {
         StreamApp streamingApp = new StreamApp();
