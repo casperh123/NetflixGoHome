@@ -62,14 +62,19 @@ public class StreamApp {
         menuPanel.add(profileComboBox);
 
 
-        // Panel for media
+        // Scroll panel for media
+
+
         JPanel mediaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-        JScrollPane scrollPane = new JScrollPane(mediaPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        frame.getContentPane().add(scrollPane);
+        mediaPanel.setBackground(Color.DARK_GRAY);
+
+        JScrollPane scrollPane = new JScrollPane(mediaPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
         // TODO Add as many components as there are media to show
-        /*for () {
-            JLabel media = new JLabel("Media");
+        /*for (Media media : currentMediaList) {
+            JButton media = new JButton(media.getImage());
             mediaPanel.add(media);
         }*/
 
@@ -112,7 +117,7 @@ public class StreamApp {
 
         // Setting up panels in the frame and making visible
         frame.add(menuPanel, BorderLayout.NORTH);
-        frame.add(mediaPanel, BorderLayout.CENTER);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
         frame.setVisible(true);
     }
