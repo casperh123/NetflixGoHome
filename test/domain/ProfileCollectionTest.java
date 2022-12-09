@@ -15,7 +15,7 @@ class ProfileCollectionTest {
     @BeforeEach
     void setUp() {
         try {
-            profileCollection = new ProfileCollection();
+            profileCollection = new ProfileList();
         } catch (FileNotLoadedException e) {
             fail(e.getMessage());
         }
@@ -40,7 +40,7 @@ class ProfileCollectionTest {
         }
 
         try {
-            profileCollection = new ProfileCollection();
+            profileCollection = new ProfileList();
             assert(profileCollection.getProfileMap().containsKey(10123762));
         } catch (FileNotLoadedException e) {
             fail(e.getMessage());
@@ -48,7 +48,7 @@ class ProfileCollectionTest {
 
         try {
             profileCollection.deleteProfile(10123762);
-            profileCollection = new ProfileCollection();
+            profileCollection = new ProfileList();
             assert(!profileCollection.getProfileMap().containsKey(10123762));
         } catch (FileNotSavedException e) {
             fail(e.getMessage());

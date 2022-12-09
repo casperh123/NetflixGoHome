@@ -3,7 +3,7 @@ package domain;
 import java.awt.*;
 import java.util.List;
 
-abstract class Media {
+public abstract class Media {
 
     protected String title;
     protected int releaseYear;

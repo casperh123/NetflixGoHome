@@ -19,7 +19,7 @@ class MediaCollectionTest {
     @BeforeEach
     void setUp() {
         try {
-            testCollection = new MediaCollection();
+            testCollection = new MediaList();
         } catch (IOException e) {
             fail("testCollection could not be instantiated");
         }

@@ -26,11 +26,11 @@ public class ProfileTest {
 
     @BeforeEach
     void setUp() {
-        dataHandler = new DataHandler();
+        dataHandler = DataHandler.getInstance();
         fileHandler = new FileHandlerImpl();
         testProfileFile = new File("lib/profiles/1026245.txt");
         try {
-            profileCollection = new ProfileCollection();
+            profileCollection = new ProfileList();
         } catch (FileNotLoadedException e) {
             fail(e.getMessage());
         }
@@ -49,7 +49,7 @@ public class ProfileTest {
 
         try{
             testProfile.addToFavorite("Spider-Man");
-            testProfile = new ProfileCollection().getProfile(10123761);
+            testProfile = new ProfileList().getProfile(10123761);
             assert(testProfile.getFavorites().contains("Spider-Man"));
         } catch (FileNotSavedException e) {
             fail(e.getMessage());
@@ -61,7 +61,7 @@ public class ProfileTest {
 
         try {
             testProfile.removeFromFavorite("Spider-Man");
-            testProfile = new ProfileCollection().getProfile(10123761);
+            testProfile = new ProfileList().getProfile(10123761);
             assert(!testProfile.getFavorites().contains("Spider-Man"));
         } catch (MediaNotInArrayException e) {
             fail(e.getMessage());
@@ -81,7 +81,7 @@ public class ProfileTest {
         testProfile.setName(randomName);
 
         try {
-            testProfile = new ProfileCollection().getProfile(10123761);
+            testProfile = new ProfileList().getProfile(10123761);
         } catch (FileNotLoadedException e) {
             fail(e.getMessage());
         }
@@ -111,7 +111,7 @@ public class ProfileTest {
         }
 
         try {
-            profile = new ProfileCollection().getProfile(10123761);
+            profile = new ProfileList().getProfile(10123761);
             loadedFavorites = profile.getFavorites();
         } catch (FileNotLoadedException e) {
             fail(e.getMessage());
