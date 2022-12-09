@@ -11,7 +11,7 @@ public class MediaCollection {
     private String genre;
 
     public MediaCollection() throws IOException {
-        media = new DataHandler().assembleMediaList();
+        media = DataHandler.getInstance().assembleMediaList();
         genre = null;
     }
 
@@ -49,7 +49,6 @@ public class MediaCollection {
         }
         return new MediaCollection(listOfMedia);
     }
-
     public MediaCollection getCollectionByName(String chosenMedia) {
         List<Media> listOfMedia = new ArrayList<>();
 
@@ -60,15 +59,13 @@ public class MediaCollection {
         }
         return new MediaCollection(listOfMedia);
     }
-
-
     public MediaCollection getCollectionByType(String mediaType) throws IOException {
         List<Media> listOfMedia;
         switch (mediaType) {
-            case "Movies" -> listOfMedia = new DataHandler().assembleMovieList();
-            case "Series" -> listOfMedia = new DataHandler().assembleSeriesList();
+            case "Movies" -> listOfMedia = DataHandler.getInstance().assembleMovieList();
+            case "Series" -> listOfMedia = DataHandler.getInstance().assembleSeriesList();
             default -> {
-                listOfMedia = new DataHandler().assembleMediaList();
+                listOfMedia = DataHandler.getInstance().assembleMediaList();
                 throw new IllegalArgumentException();
             }
         }
@@ -98,5 +95,4 @@ public class MediaCollection {
     public String getGenre() {
         return genre;
     }
-
 }

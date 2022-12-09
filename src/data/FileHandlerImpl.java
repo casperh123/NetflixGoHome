@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHandlerImpl implements FileHandler {
-
     // reading file and returning as arrayList
     public List<String> loadFile(File file) throws FileNotLoadedException {
 

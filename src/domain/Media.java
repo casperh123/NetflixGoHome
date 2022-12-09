@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.List;
 
 abstract class Media {
+
     protected String title;
     protected int releaseYear;
     protected List<String> genres;

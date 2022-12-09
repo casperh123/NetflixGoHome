@@ -12,12 +12,14 @@ import java.util.List;
 import java.util.*;
 
 public class DataHandler {
+
+    private static DataHandler dataHandler = null;
     private FileHandler fileHandler;
     private File movieList;
     private File seriesList;
     private File profileIds;
 
-    public DataHandler() {
+    private DataHandler() {
         movieList = new File("lib/mediaMetaData/film.txt");
         seriesList = new File("lib/mediaMetaData/serier.txt");
         profileIds = new File("lib/profiles/profileIds.txt");
@@ -175,5 +177,12 @@ public class DataHandler {
         }
 
         return seasonEpisodeMap;
+    }
+
+    public static DataHandler getInstance() {
+        if(dataHandler == null) {
+            dataHandler = new DataHandler();
+        }
+        return dataHandler;
     }
 }

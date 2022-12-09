@@ -13,17 +13,14 @@ public class ProfileCollection {
 
     private Map<Integer, Profile> profileMap;
     private Profile activeProfile;
-    //TODO Check CurrentID works as intended
     private int currentID;
 
-    //TODO Throw FileNotLoadedException?
     public ProfileCollection() throws FileNotLoadedException {
-        this.dataHandler = new DataHandler();
+        this.dataHandler = DataHandler.getInstance();
         this.profileMap = dataHandler.assembleProfileMap();
         this.currentID = getMaxID() + 1;
     }
 
-    //TODO FileNotSavedException?
     public void createProfile(String name) throws FileNotSavedException {
 
         Profile newProfile = new Profile(this.currentID ,name, new ArrayList<>());
@@ -39,16 +36,14 @@ public class ProfileCollection {
         dataHandler.saveProfileMap(profileMap);
     }
 
-    public boolean deleteProfile(int id) throws FileNotSavedException {
+    public void deleteProfile(int id) throws FileNotSavedException {
 
         File profileFile = new File("lib/profiles/" + id + ".txt");
         //TODO ?Que pasa Exeptioooon?
         if(profileFile.delete()) {
             profileMap.remove(id);
             dataHandler.saveProfileMap(profileMap);
-            return true;
         }
-        return false;
     }
 
     public void setActiveProfile(int id) {

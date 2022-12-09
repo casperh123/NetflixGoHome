@@ -12,14 +12,13 @@ public class Profile {
     private String name;
     private List<String> favorites;
     private int id;
-
     private DataHandler dataHandler;
 
     public Profile(int id, String name, List<String> favorites) {
         this.id = id;
         this.name = name;
         this.favorites = favorites;
-        this.dataHandler = new DataHandler();
+        this.dataHandler = DataHandler.getInstance();
     }
 
     void addToFavorite(String mediaName) throws MediaAlreadyInArrayException, FileNotSavedException {

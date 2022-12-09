@@ -3,7 +3,6 @@ package presentation;
 import domain.MediaCollection;
 import domain.ProfileCollection;
 
-import javax.print.attribute.standard.Media;
 import javax.swing.*;
 import java.awt.*;
 
