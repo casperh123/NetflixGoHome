@@ -21,7 +21,7 @@ public class StreamApp {
         frame = new JFrame();
         frame.setLayout(new BorderLayout(10, 10));
         frame.setTitle("Netflix Go Home");
-        frame.setSize(1110, 650);
+        frame.setSize(1130, 650);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -33,20 +33,20 @@ public class StreamApp {
         JLabel logoLabel = new JLabel("There will be a logo here");
         menuPanel.add(logoLabel);
 
-        JTextField searchTextField = new JTextField("media title..");
+        JTextField searchTextField = new JTextField("media title..", 10);
         menuPanel.add(searchTextField);
 
         JButton searchButton = new JButton("Search");
         menuPanel.add(searchButton);
 
-        String[] sortByArray = {"Favorites", "Rating (Highest first)", "Rating (Lowest first)",
+        String[] sortByArray = {"Sort by","Favorites", "Rating (Highest first)", "Rating (Lowest first)",
                 "Release year (Newest first)", "Release year (Oldest first)"};
         JComboBox<String> sortComboBox = new JComboBox<>(sortByArray);
         menuPanel.add(sortComboBox);
 
         // TODO Being able to select more than one
         // TODO Get genres from genreList
-        String[] genresArray = {"Action", "Adventure", "Biography","Crime", "Comic", "Drama","History","Horror"};
+        String[] genresArray = {"Genres","Action", "Adventure", "Biography","Crime", "Comic", "Drama","History","Horror"};
         JComboBox<String> genresComboBox = new JComboBox<>(genresArray);
         menuPanel.add(genresComboBox);
 
@@ -57,14 +57,16 @@ public class StreamApp {
         menuPanel.add(mediasComboBox);
 
         // TODO Find right component for the job
-        String[] profileOptionsArray = {"Change profile", "Sign out", "Save"};
+        String[] profileOptionsArray = {"Profile options", "Change profile", "Sign out", "Save"};
         JComboBox<String> profileComboBox = new JComboBox<>(profileOptionsArray);
         menuPanel.add(profileComboBox);
 
 
         // Panel for media
         JPanel mediaPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
-
+        JScrollPane scrollPane = new JScrollPane(mediaPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        frame.getContentPane().add(scrollPane);
         // TODO Add as many components as there are media to show
         /*for () {
             JLabel media = new JLabel("Media");
@@ -73,7 +75,6 @@ public class StreamApp {
 
         // Adding JButtons for testing
         ImageIcon image = new ImageIcon("lib/media/serieforsider/The Simpsons.jpg");
-
 
         JButton jButton1 = new JButton(image);
         jButton1.setSize(image.getIconWidth(), image.getIconHeight());
@@ -89,6 +90,25 @@ public class StreamApp {
         mediaPanel.add(jButton5);
         JButton jButton6 = new JButton(image);
         mediaPanel.add(jButton6);
+        JButton jButton7 = new JButton(image);
+        mediaPanel.add(jButton7);
+        JButton jButton8 = new JButton(image);
+        mediaPanel.add(jButton8);
+        JButton jButton9 = new JButton(image);
+        mediaPanel.add(jButton9);
+        JButton jButton10 = new JButton(image);
+        mediaPanel.add(jButton10);
+        JButton jButton11 = new JButton(image);
+        mediaPanel.add(jButton11);
+        JButton jButton12 = new JButton(image);
+        mediaPanel.add(jButton12);
+        JButton jButton13 = new JButton(image);
+        mediaPanel.add(jButton13);
+        JButton jButton14 = new JButton(image);
+        mediaPanel.add(jButton14);
+        JButton jButton15 = new JButton(image);
+        mediaPanel.add(jButton15);
+
 
         // Setting up panels in the frame and making visible
         frame.add(menuPanel, BorderLayout.NORTH);
