@@ -50,6 +50,17 @@ public class MediaCollection {
         return new MediaCollection(listOfMedia);
     }
 
+    public MediaCollection getCollectionByName(String chosenMedia) {
+        List<Media> listOfMedia = new ArrayList<>();
+
+        for (Media media : media) {
+            if (media.getTitle().toLowerCase().contains(chosenMedia.toLowerCase())) {
+                    listOfMedia.add(media);
+            }
+        }
+        return new MediaCollection(listOfMedia);
+    }
+
 
     public MediaCollection getCollectionByType(String mediaType) throws IOException {
         List<Media> listOfMedia;
